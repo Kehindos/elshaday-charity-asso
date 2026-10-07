@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charity Portal & API Testing Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2E7D32;
+      --primary-hover: #236327;
+      --primary-light: #388E3C;
+      --secondary: #8B5E3C;
+      --success: #2E7D32;
+      --warning: #D4A72C;
+      --danger: #D32F2F;
+      --brown: #8B5E3C;
+      --gold: #D4A72C;
+      --bg: #F5E6C8;
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --card-border: rgba(139, 94, 60, 0.22);
+      --text: #222222;
+      --text-muted: #5C5248;
+      --input-bg: #FFFFFF;
+      --input-border: rgba(139, 94, 60, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top right, rgba(212, 167, 44, 0.15), #F5E6C8 60%, #EADCBE);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: rgba(245, 230, 200, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 15px rgba(139, 94, 60, 0.06);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--brown);
+    }
+
+    .auth-status-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--card-border);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--danger);
+    }
+    .status-dot.online { background: var(--success); }
+
+    .main-container {
+      display: flex;
+      flex: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    .sidebar {
+      width: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: rgba(139, 94, 60, 0.08);
+      color: var(--brown);
+    }
+
+    .nav-btn.active {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: #FFFFFF;
+      box-shadow: 0 4px 15px rgba(139, 94, 60, 0.25);
+    }
+
+    .content-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(139, 94, 60, 0.08);
+    }
+
+    .card h2, .card h3 {
+      color: var(--brown);
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: rgba(245, 230, 200, 0.45);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-val {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--brown);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .badge-PENDING { background: rgba(212, 167, 44, 0.18); color: #9E6E0F; border: 1px solid rgba(212, 167, 44, 0.4); }
+    .badge-APPROVED { background: rgba(46, 125, 50, 0.15); color: #2E7D32; border: 1px solid rgba(46, 125, 50, 0.4); }
+    .badge-ACTIVE { background: rgba(46, 125, 50, 0.20); color: #1B5E20; border: 1px solid rgba(46, 125, 50, 0.4); }
+    .badge-INACTIVE { background: rgba(139, 94, 60, 0.15); color: #8B5E3C; border: 1px solid rgba(139, 94, 60, 0.3); }
+    .badge-REJECTED { background: rgba(211, 47, 47, 0.15); color: #D32F2F; border: 1px solid rgba(211, 47, 47, 0.3); }
+    .badge-UNREAD { background: rgba(211, 47, 47, 0.15); color: #D32F2F; border: 1px solid rgba(211, 47, 47, 0.3); }
+    .badge-READ { background: rgba(139, 94, 60, 0.15); color: #8B5E3C; }
+    .badge-REPLIED { background: rgba(46, 125, 50, 0.15); color: #2E7D32; }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 14px;
+      background: var(--input-bg);
+      border: 1.5px solid var(--input-border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.2);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--brown);
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #FFFFFF;
+      box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 6px 20px rgba(46, 125, 50, 0.45);
+    }
+
+    .btn-secondary {
+      background: var(--brown);
+      color: #FFFFFF;
+    }
+    .btn-secondary:hover { background: #734726; }
+
+    .btn-success { background: #2E7D32; color: #fff; }
+    .btn-danger { background: #D32F2F; color: #fff; }
+    .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+      font-size: 0.88rem;
+    }
+
+    th {
+      color: var(--brown);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+    }
+
+    tr:hover td {
+      background: rgba(139, 94, 60, 0.04);
+    }
+
+    .tab-view { display: none; }
+    .tab-view.active { display: block; }
+
+    .api-banner {
+      background: rgba(212, 167, 44, 0.15);
+      border: 1px dashed rgba(139, 94, 60, 0.4);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--brown);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <span>✨ Elshaday Charity Management Portal</span>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <a href="http://localhost:3000/api/docs" target="_blank" class="btn btn-secondary btn-sm" style="text-decoration: none;">
+        📚 Swagger API Docs
+      </a>
+      <div class="auth-status-pill">
+        <span class="status-dot" id="authDot"></span>
+        <span id="authStatusText">Not Logged In</span>
+      </div>
+      <button class="btn btn-danger btn-sm" id="logoutBtn" style="display: none;" onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <div class="sidebar">
+      <button class="nav-btn active" onclick="switchTab('dashboard')">📊 Dashboard & Stats</button>
+      <button class="nav-btn" onclick="switchTab('volunteers')">🤝 Volunteer Management</button>
+      <button class="nav-btn" onclick="switchTab('register-volunteer')">📝 Public Volunteer Form</button>
+      <button class="nav-btn" onclick="switchTab('content-cms')">📰 Website Content (CMS)</button>
+      <button class="nav-btn" onclick="switchTab('messages')">✉️ Contact Messages</button>
+      <button class="nav-btn" onclick="switchTab('settings')">⚙️ Organization Settings</button>
+      <button class="nav-btn" onclick="switchTab('auth')">🔐 Admin Login / Profile</button>
+    </div>
+
+    <div class="content-area">
+
+      <!-- DASHBOARD TAB -->
+      <div id="tab-dashboard" class="tab-view active">
+        <div class="card">
+          <h2>📊 Overview & Live Statistics</h2>
+          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Real-time statistics queried directly from MySQL 8.0 backend API.</p>
+
+          <div class="grid-4" id="statsGrid">
+            <div class="stat-card">
+              <span class="stat-label">Total Volunteers</span>
+              <span class="stat-val" id="statTotalVolunteers">-</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Pending Applications</span>
+              <span class="stat-val" style="color: #fbbf24;" id="statPendingVolunteers">-</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Approved Volunteers</span>
+              <span class="stat-val" style="color: #34d399;" id="statApprovedVolunteers">-</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Active Volunteers</span>
+              <span class="stat-val" style="color: #38bdf8;" id="statActiveVolunteers">-</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Unread Inquiries</span>
+              <span class="stat-val" style="color: #f87171;" id="statUnreadMessages">-</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Programs / Projects</span>
+              <span class="stat-val" id="statPrograms">-</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Published Events</span>
+              <span class="stat-val" id="statEvents">-</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Total Admins</span>
+              <span class="stat-val" id="statAdmins">-</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 2rem;">
+            <h3>Recent Volunteer Applicants</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>City</th>
+                  <th>Status</th>
+                  <th>Applied On</th>
+                </tr>
+              </thead>
+              <tbody id="recentVolunteersTable">
+                <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Loading dashboard data...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- VOLUNTEERS TAB -->
+      <div id="tab-volunteers" class="tab-view">
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h2>🤝 Volunteer Registrations Management</h2>
+            <div style="display: flex; gap: 8px;">
+              <select id="filterStatus" onchange="loadVolunteers()" style="width: 180px;">
+                <option value="">All Statuses</option>
+                <option value="PENDING">PENDING</option>
+                <option value="APPROVED">APPROVED</option>
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="INACTIVE">INACTIVE</option>
+                <option value="REJECTED">REJECTED</option>
+              </select>
+              <input type="text" id="volunteerSearch" placeholder="Search by name/email..." onkeyup="if(event.key==='Enter') loadVolunteers()" style="width: 220px;">
+              <button class="btn btn-primary btn-sm" onclick="loadVolunteers()">Filter</button>
+            </div>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Contact</th>
+                <th>Skills & Availability</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="volunteersTableBody">
+              <tr><td colspan="6" style="text-align:center;">Loading volunteers...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PUBLIC VOLUNTEER REGISTRATION TAB -->
+      <div id="tab-register-volunteer" class="tab-view">
+        <div class="card">
+          <h2>📝 Public Volunteer Application Form</h2>
+          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Test the public volunteer registration endpoint (<code>POST /api/volunteers/register</code>).</p>
+
+          <form id="volunteerRegForm" onsubmit="handleVolunteerRegister(event)">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label>Full Name *</label>
+                <input type="text" id="regFullName" required placeholder="Abebe Bikila">
+              </div>
+              <div class="form-group">
+                <label>Email Address *</label>
+                <input type="email" id="regEmail" required placeholder="abebe@example.com">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label>Phone Number *</label>
+                <input type="text" id="regPhone" required placeholder="+251911223344">
+              </div>
+              <div class="form-group">
+                <label>City / Location</label>
+                <input type="text" id="regCity" placeholder="Addis Ababa">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label>Occupation</label>
+                <input type="text" id="regOccupation" placeholder="Software Engineer / Teacher">
+              </div>
+              <div class="form-group">
+                <label>Availability Schedule</label>
+                <input type="text" id="regAvailability" placeholder="Weekends / Flexible">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Skills (comma-separated)</label>
+              <input type="text" id="regSkills" placeholder="Teaching, First Aid, Graphic Design, Event Planning">
+            </div>
+
+            <div class="form-group">
+              <label>Areas of Interest (comma-separated)</label>
+              <input type="text" id="regAreas" placeholder="Child Education, Food Distribution, Youth Outreach">
+            </div>
+
+            <div class="form-group">
+              <label>Motivation / Statement</label>
+              <textarea id="regMotivation" rows="3" placeholder="Why do you wish to volunteer with us?"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Submit Volunteer Application</button>
+            <span id="regFeedback" style="margin-left: 12px; font-weight: 600;"></span>
+          </form>
+        </div>
+      </div>
+
+      <!-- CONTENT CMS TAB -->
+      <div id="tab-content-cms" class="tab-view">
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h2>📰 Website Content Management</h2>
+            <button class="btn btn-primary btn-sm" onclick="showAddContentModal()">+ Add New Item</button>
+          </div>
+
+          <div style="display: flex; gap: 8px; margin-bottom: 1rem;">
+            <button class="btn btn-secondary btn-sm" onclick="loadContent('ABOUT')">About</button>
+            <button class="btn btn-secondary btn-sm" onclick="loadContent('PROGRAM')">Programs</button>
+            <button class="btn btn-secondary btn-sm" onclick="loadContent('EVENT')">Events</button>
+            <button class="btn btn-secondary btn-sm" onclick="loadContent('NEWS')">News</button>
+            <button class="btn btn-secondary btn-sm" onclick="loadContent('ANNOUNCEMENT')">Announcements</button>
+            <button class="btn btn-secondary btn-sm" onclick="loadContent('GALLERY')">Gallery</button>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Title (EN)</th>
+                <th>Title (Amharic)</th>
+                <th>Published</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="contentTableBody">
+              <tr><td colspan="5" style="text-align: center;">Loading CMS items...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MESSAGES TAB -->
+      <div id="tab-messages" class="tab-view">
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h2>✉️ Contact Messages & Inquiries</h2>
+            <select id="filterMsgStatus" onchange="loadMessages()" style="width: 180px;">
+              <option value="">All Statuses</option>
+              <option value="UNREAD">UNREAD</option>
+              <option value="READ">READ</option>
+              <option value="REPLIED">REPLIED</option>
+              <option value="ARCHIVED">ARCHIVED</option>
+            </select>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Sender</th>
+                <th>Subject</th>
+                <th>Message Snippet</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="messagesTableBody">
+              <tr><td colspan="5" style="text-align: center;">Loading messages...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SETTINGS TAB -->
+      <div id="tab-settings" class="tab-view">
+        <div class="card">
+          <h2>⚙️ Organization & Site Settings</h2>
+          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Configure contact information, bank accounts, and branding dynamically.</p>
+
+          <div id="settingsContainer" style="display: flex; flex-direction: column; gap: 12px;">
+            <p>Loading settings...</p>
+          </div>
+
+          <button class="btn btn-primary" onclick="saveSettings()" style="margin-top: 1.5rem;">Save Settings</button>
+          <span id="settingsFeedback" style="margin-left: 12px;"></span>
+        </div>
+      </div>
+
+      <!-- AUTH TAB -->
+      <div id="tab-auth" class="tab-view">
+        <div class="card" style="max-width: 500px; margin: 0 auto;">
+          <h2>🔐 Admin Authentication</h2>
+          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Login to receive JWT token for protected admin endpoints.</p>
+
+          <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+              <label>Admin Email</label>
+              <input type="email" id="loginEmail" value="admin@charity.org" required>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" id="loginPassword" value="Admin123!" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In as Admin</button>
+            <p id="loginMsg" style="margin-top: 12px; font-size: 0.85rem;"></p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:3000/api';
+    let token = localStorage.getItem('charity_jwt') || '';
+
+    function updateAuthStatus() {
+      const dot = document.getElementById('authDot');
+      const text = document.getElementById('authStatusText');
+      const logoutBtn = document.getElementById('logoutBtn');
+
+      if (token) {
+        dot.className = 'status-dot online';
+        text.innerText = 'Admin Authenticated';
+        logoutBtn.style.display = 'inline-flex';
+      } else {
+        dot.className = 'status-dot';
+        text.innerText = 'Not Logged In';
+        logoutBtn.style.display = 'none';
+      }
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-view').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+      const targetTab = document.getElementById('tab-' + tabId);
+      if (targetTab) targetTab.classList.add('active');
+
+      const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.getAttribute('onclick')?.includes(tabId));
+      if (activeBtn) activeBtn.classList.add('active');
+
+      if (tabId === 'dashboard') loadDashboard();
+      if (tabId === 'volunteers') loadVolunteers();
+      if (tabId === 'content-cms') loadContent();
+      if (tabId === 'messages') loadMessages();
+      if (tabId === 'settings') loadSettings();
+    }
+
+    async function apiCall(endpoint, method = 'GET', body = null, isPublic = false) {
+      const headers = { 'Content-Type': 'application/json' };
+      if (token && !isPublic) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      const res = await fetch(`${API_BASE}${endpoint}`, {
+        method,
+        headers,
+        body: body ? JSON.stringify(body) : null,
+      });
+
+      const json = await res.json();
+      return json;
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const msg = document.getElementById('loginMsg');
+
+      msg.innerText = 'Authenticating...';
+      msg.style.color = '#94a3b8';
+
+      try {
+        const res = await apiCall('/auth/login', 'POST', { email, password }, true);
+        if (res.success && res.data?.accessToken) {
+          token = res.data.accessToken;
+          localStorage.setItem('charity_jwt', token);
+          msg.innerText = '✓ Login successful!';
+          msg.style.color = '#34d399';
+          updateAuthStatus();
+          setTimeout(() => switchTab('dashboard'), 600);
+        } else {
+          msg.innerText = '✗ ' + (res.message || 'Login failed');
+          msg.style.color = '#f87171';
+        }
+      } catch (err) {
+        msg.innerText = '✗ Error connecting to backend at ' + API_BASE;
+        msg.style.color = '#f87171';
+      }
+    }
+
+    function logout() {
+      token = '';
+      localStorage.removeItem('charity_jwt');
+      updateAuthStatus();
+      switchTab('auth');
+    }
+
+    async function loadDashboard() {
+      try {
+        const res = await apiCall('/statistics/dashboard');
+        if (res.success && res.data) {
+          const s = res.data.summary;
+          document.getElementById('statTotalVolunteers').innerText = s.totalVolunteers;
+          document.getElementById('statPendingVolunteers').innerText = s.pendingApplications;
+          document.getElementById('statApprovedVolunteers').innerText = s.approvedVolunteers;
+          document.getElementById('statActiveVolunteers').innerText = s.activeVolunteers;
+          document.getElementById('statUnreadMessages').innerText = s.unreadMessages;
+          document.getElementById('statPrograms').innerText = s.totalPrograms;
+          document.getElementById('statEvents').innerText = s.totalEvents;
+          document.getElementById('statAdmins').innerText = s.totalAdmins;
+
+          const recent = res.data.recentVolunteers || [];
+          const tbody = document.getElementById('recentVolunteersTable');
+          if (recent.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No volunteers registered yet</td></tr>';
+          } else {
+            tbody.innerHTML = recent.map(v => `
+              <tr>
+                <td><strong>${v.fullName}</strong></td>
+                <td>${v.email}</td>
+                <td>${v.city || '-'}</td>
+                <td><span class="badge badge-${v.status}">${v.status}</span></td>
+                <td>${new Date(v.createdAt).toLocaleDateString()}</td>
+              </tr>
+            `).join('');
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function loadVolunteers() {
+      const status = document.getElementById('filterStatus')?.value || '';
+      const search = document.getElementById('volunteerSearch')?.value || '';
+      const tbody = document.getElementById('volunteersTableBody');
+
+      let query = '?limit=50';
+      if (status) query += `&status=${status}`;
+      if (search) query += `&search=${encodeURIComponent(search)}`;
+
+      try {
+        const res = await apiCall(`/volunteers${query}`);
+        if (res.success && res.data?.items) {
+          const items = res.data.items;
+          if (items.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No volunteers found</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = items.map(v => `
+            <tr>
+              <td>#${v.id}</td>
+              <td>
+                <strong>${v.fullName}</strong><br>
+                <span style="font-size:0.75rem; color:var(--text-muted);">${v.occupation || 'Volunteer'}</span>
+              </td>
+              <td>
+                ${v.email}<br>
+                <span style="font-size:0.75rem; color:var(--text-muted);">${v.phone}</span>
+              </td>
+              <td>
+                <span style="font-size:0.8rem;">${(v.skills || []).join(', ') || 'General'}</span><br>
+                <span style="font-size:0.75rem; color:var(--secondary);">${v.availability || 'Flexible'}</span>
+              </td>
+              <td><span class="badge badge-${v.status}">${v.status}</span></td>
+              <td>
+                <div style="display: flex; gap: 4px;">
+                  <button class="btn btn-success btn-sm" onclick="changeStatus(${v.id}, 'APPROVED')">Approve</button>
+                  <button class="btn btn-primary btn-sm" onclick="changeStatus(${v.id}, 'ACTIVE')">Activate</button>
+                  <button class="btn btn-danger btn-sm" onclick="changeStatus(${v.id}, 'REJECTED')">Reject</button>
+                </div>
+              </td>
+            </tr>
+          `).join('');
+        }
+      } catch (err) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:red;">Failed to load volunteers (ensure logged in).</td></tr>';
+      }
+    }
+
+    async function changeStatus(id, newStatus) {
+      const note = prompt(`Enter note for setting status to ${newStatus}:`, `Status updated to ${newStatus}`);
+      if (note === null) return;
+
+      const res = await apiCall(`/volunteers/${id}/status`, 'PATCH', {
+        status: newStatus,
+        adminNotes: note,
+      });
+
+      if (res.success) {
+        alert(`Volunteer #${id} status changed to ${newStatus}`);
+        loadVolunteers();
+        loadDashboard();
+      } else {
+        alert('Error: ' + res.message);
+      }
+    }
+
+    async function handleVolunteerRegister(e) {
+      e.preventDefault();
+      const feedback = document.getElementById('regFeedback');
+      feedback.innerText = 'Submitting...';
+      feedback.style.color = '#94a3b8';
+
+      const payload = {
+        fullName: document.getElementById('regFullName').value,
+        email: document.getElementById('regEmail').value,
+        phone: document.getElementById('regPhone').value,
+        city: document.getElementById('regCity').value,
+        occupation: document.getElementById('regOccupation').value,
+        availability: document.getElementById('regAvailability').value,
+        skills: document.getElementById('regSkills').value.split(',').map(s => s.trim()).filter(Boolean),
+        areasOfInterest: document.getElementById('regAreas').value.split(',').map(s => s.trim()).filter(Boolean),
+        motivation: document.getElementById('regMotivation').value,
+      };
+
+      const res = await apiCall('/volunteers/register', 'POST', payload, true);
+      if (res.success) {
+        feedback.innerText = '✓ Application submitted successfully!';
+        feedback.style.color = '#34d399';
+        document.getElementById('volunteerRegForm').reset();
+      } else {
+        feedback.innerText = '✗ ' + res.message;
+        feedback.style.color = '#f87171';
+      }
+    }
+
+    async function loadContent(type = 'PROGRAM') {
+      const tbody = document.getElementById('contentTableBody');
+      const res = await apiCall(`/content/admin/list?type=${type}`);
+
+      if (res.success && res.data?.items) {
+        const items = res.data.items;
+        if (items.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No ${type} items found</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = items.map(c => `
+          <tr>
+            <td><span class="badge badge-ACTIVE">${c.type}</span></td>
+            <td><strong>${c.title}</strong></td>
+            <td>${c.titleAm || '-'}</td>
+            <td>${c.isPublished ? '✅ Yes' : '❌ Draft'}</td>
+            <td>
+              <button class="btn btn-secondary btn-sm" onclick="togglePublish(${c.id})">Toggle Publish</button>
+            </td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    async function togglePublish(id) {
+      const res = await apiCall(`/content/admin/item/${id}/toggle-publish`, 'PATCH');
+      if (res.success) {
+        loadContent();
+      }
+    }
+
+    async function loadMessages() {
+      const status = document.getElementById('filterMsgStatus')?.value || '';
+      let query = '?limit=50';
+      if (status) query += `&status=${status}`;
+
+      const tbody = document.getElementById('messagesTableBody');
+      const res = await apiCall(`/messages${query}`);
+
+      if (res.success && res.data?.items) {
+        const items = res.data.items;
+        if (items.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No messages found</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = items.map(m => `
+          <tr>
+            <td><strong>${m.fullName}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${m.email}</span></td>
+            <td>${m.subject}</td>
+            <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${m.message}</td>
+            <td><span class="badge badge-${m.status}">${m.status}</span></td>
+            <td>
+              <button class="btn btn-secondary btn-sm" onclick="updateMsgStatus(${m.id}, 'READ')">Mark Read</button>
+              <button class="btn btn-success btn-sm" onclick="updateMsgStatus(${m.id}, 'REPLIED')">Mark Replied</button>
+            </td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    async function updateMsgStatus(id, newStatus) {
+      const res = await apiCall(`/messages/${id}/status`, 'PATCH', { status: newStatus });
+      if (res.success) {
+        loadMessages();
+        loadDashboard();
+      }
+    }
+
+    async function loadSettings() {
+      const container = document.getElementById('settingsContainer');
+      const res = await apiCall('/content/public/settings', 'GET', null, true);
+
+      if (res.success && res.data) {
+        const settings = res.data;
+        container.innerHTML = Object.entries(settings).map(([k, v]) => `
+          <div class="form-group">
+            <label><code>${k}</code></label>
+            <input type="text" id="setting_${k}" value="${v}">
+          </div>
+        `).join('');
+      }
+    }
+
+    async function saveSettings() {
+      const inputs = document.querySelectorAll('[id^="setting_"]');
+      const settings = {};
+      inputs.forEach(inp => {
+        const key = inp.id.replace('setting_', '');
+        settings[key] = inp.value;
+      });
+
+      const res = await apiCall('/content/admin/settings/bulk', 'PUT', { settings });
+      const fb = document.getElementById('settingsFeedback');
+      if (res.success) {
+        fb.innerText = '✓ Settings updated successfully!';
+        fb.style.color = '#34d399';
+      } else {
+        fb.innerText = '✗ ' + res.message;
+        fb.style.color = '#f87171';
+      }
+    }
+
+    // Initialize on load
+    updateAuthStatus();
+    if (token) {
+      loadDashboard();
+    } else {
+      switchTab('auth');
+    }
+  </script>
+</body>
+</html>

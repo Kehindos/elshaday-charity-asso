@@ -1,0 +1,28 @@
+# Node.js
+node_modules/
+dist/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# VS Code
+.vscode/
+
+# MySQL local database
+backend/mysql_data/
+
+# Uploaded/generated runtime files
+backend/uploads/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.pid
+
+# Media that should not be committed
+*.mp4
+*.mp3

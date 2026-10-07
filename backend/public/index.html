@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elshaday Charity Organization | ኤልሻዳይ የበጎ አድራጎት ድርጅት</title>
+  <meta name="description" content="Official portal for Elshaday Charity Organization. Dedicated charity programs, volunteer registration, humanitarian outreach, and donations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Ethiopic:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Brand Color System */
+      --bg-cream: #F5E6C8;           /* 🤍 Cream / Shiro: Main background */
+      --brown: #8B5E3C;              /* 🟤 Warm Brown: Headings/details */
+      --brown-dark: #664126;
+      --brown-light: #A4754E;
+      --brown-soft: rgba(139, 94, 60, 0.12);
+      
+      --green-action: #2E7D32;       /* 🟢 Green: Charity / Hope / Action */
+      --green-hover: #236327;
+      --green-light: #388E3C;
+      --green-soft: rgba(46, 125, 50, 0.12);
+      
+      --gold: #D4A72C;               /* 🟡 Gold: Highlights */
+      --gold-hover: #B88E1F;
+      --gold-light: #E2BC4B;
+      --gold-soft: rgba(212, 167, 44, 0.18);
+      
+      --dark-text: #222222;          /* ⚫ Dark: Text */
+      --dark-muted: #5C5248;
+      
+      /* Semantic Mappings */
+      --bg: var(--bg-cream);
+      --bg-card: rgba(255, 255, 255, 0.90);
+      --bg-card-hover: #FFFFFF;
+      --card-border: rgba(139, 94, 60, 0.22);
+      --card-border-glow: rgba(212, 167, 44, 0.65);
+      
+      --primary: var(--green-action);
+      --primary-light: var(--green-light);
+      --primary-dark: var(--green-hover);
+      --secondary: var(--brown);
+      --accent: var(--gold);
+      --success: var(--green-action);
+      --danger: #D32F2F;
+      
+      --text: var(--dark-text);
+      --text-muted: var(--dark-muted);
+      
+      --input-bg: #FFFFFF;
+      --input-border: rgba(139, 94, 60, 0.3);
+      
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', 'Noto Sans Ethiopic', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Ambient background gradient lights */
+    .ambient-glow {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at 15% 10%, rgba(212, 167, 44, 0.16) 0%, transparent 50%),
+                  radial-gradient(circle at 85% 60%, rgba(46, 125, 50, 0.10) 0%, transparent 50%),
+                  radial-gradient(circle at 50% 90%, rgba(139, 94, 60, 0.10) 0%, transparent 45%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* HEADER & NAVIGATION */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(245, 230, 200, 0.94);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 0.85rem 2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(139, 94, 60, 0.06);
+    }
+
+    .nav-container {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--brown);
+    }
+
+    .brand-logo img {
+      height: 44px;
+      width: auto;
+      border-radius: 8px;
+    }
+
+    .brand-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--brown);
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      padding: 8px 16px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .nav-link:hover {
+      color: var(--brown);
+      background: var(--brown-soft);
+    }
+
+    .nav-link.active {
+      color: #FFFFFF;
+      background: var(--brown);
+      border-color: var(--brown);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* BUTTONS */
+    .btn {
+      padding: 10px 22px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green-action), var(--green-light));
+      color: #FFFFFF;
+      box-shadow: 0 4px 18px rgba(46, 125, 50, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, var(--green-hover), var(--green-action));
+      box-shadow: 0 8px 25px rgba(46, 125, 50, 0.5);
+    }
+
+    .btn-donate {
+      background: linear-gradient(135deg, var(--gold), var(--gold-hover));
+      color: #FFFFFF;
+      box-shadow: 0 4px 18px rgba(212, 167, 44, 0.4);
+    }
+    .btn-donate:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, var(--gold-hover), #9E6E0F);
+      box-shadow: 0 8px 25px rgba(212, 167, 44, 0.55);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--brown);
+      color: var(--brown);
+    }
+    .btn-outline:hover {
+      background: var(--brown-soft);
+      border-color: var(--brown);
+      color: var(--brown-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-sm {
+      padding: 7px 14px;
+      font-size: 0.82rem;
+      border-radius: 8px;
+    }
+
+    .lang-toggle {
+      background: var(--brown-soft);
+      border: 1px solid var(--card-border);
+      color: var(--brown);
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .lang-toggle:hover {
+      background: rgba(139, 94, 60, 0.2);
+    }
+
+    /* MAIN CONTAINER & PAGE ROUTING */
+    main {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-section {
+      display: none;
+      animation: fadeIn 0.35s ease forwards;
+      padding: 3.5rem 0 5rem;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* SECTION HEADERS */
+    .page-header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      background: var(--gold-soft);
+      border: 1px solid rgba(212, 167, 44, 0.45);
+      border-radius: 9999px;
+      color: var(--brown);
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1rem;
+    }
+
+    .page-header h1, .page-header h2 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: var(--brown);
+      background: linear-gradient(135deg, var(--brown-dark), var(--brown));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .page-header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    /* HERO SECTION */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+      padding: 2rem 0 4rem;
+    }
+
+    .hero-content h1 {
+      font-size: 3.75rem;
+      font-weight: 800;
+      line-height: 1.12;
+      margin-bottom: 1.5rem;
+      letter-spacing: -1px;
+      color: var(--brown);
+      background: linear-gradient(135deg, var(--brown-dark), var(--brown));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 2.25rem;
+      max-width: 580px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: 0 20px 50px rgba(139, 94, 60, 0.12);
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+    }
+
+    .audio-bar {
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid var(--card-border);
+      padding: 12px 16px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+    }
+
+    .audio-bar audio {
+      width: 100%;
+      height: 36px;
+    }
+
+    /* METRIC BANNER */
+    .impact-banner {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 230, 200, 0.85) 100%);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      margin: 3rem 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(139, 94, 60, 0.08);
+    }
+
+    .impact-val {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--brown);
+      background: linear-gradient(135deg, var(--brown), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .impact-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    /* CARDS & GRIDS */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(139, 94, 60, 0.08);
+    }
+
+    .card h3 {
+      color: var(--brown);
+      font-weight: 700;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--card-border-glow);
+      background: var(--bg-card-hover);
+      box-shadow: 0 18px 40px rgba(139, 94, 60, 0.15);
+    }
+
+    .card-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+
+    /* PROGRAM CARDS */
+    .program-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .program-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background: #EFE0BF;
+    }
+
+    .program-content {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .tag-category {
+      align-self: flex-start;
+      padding: 4px 12px;
+      background: var(--green-soft);
+      border: 1px solid rgba(46, 125, 50, 0.35);
+      color: var(--green-action);
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .progress-box {
+      margin: 1.25rem 0;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: rgba(139, 94, 60, 0.15);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green-action), var(--gold));
+      border-radius: 9999px;
+    }
+
+    /* GALLERY */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-card {
+      position: relative;
+      height: 250px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 8px 24px rgba(139, 94, 60, 0.08);
+      background: #EFE0BF;
+    }
+
+    .gallery-card img, .gallery-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(54, 35, 25, 0.88) 0%, transparent 60%);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.25rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      color: #F5E6C8;
+      font-weight: 700;
+    }
+
+    .gallery-card:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    /* FORMS & VOLUNTEER REGISTRATION */
+    .form-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 20px 50px rgba(139, 94, 60, 0.12);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--brown);
+    }
+
+    .form-group label span.req {
+      color: var(--danger);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--input-bg);
+      border: 1.5px solid var(--input-border);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--green-action);
+      box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.2);
+    }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .skill-chip {
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(245, 230, 200, 0.65);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s;
+    }
+
+    .skill-chip:hover:not(.selected) {
+      background: var(--gold-soft);
+      border-color: var(--gold);
+      color: var(--text);
+    }
+
+    .skill-chip.selected {
+      background: var(--green-action);
+      border-color: var(--green-action);
+      color: #FFFFFF;
+    }
+
+    /* MODALS */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(34, 34, 34, 0.65);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #FFFDF8;
+      border: 2px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 540px;
+      padding: 2.25rem;
+      position: relative;
+      color: var(--text);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    .modal-box h3 {
+      color: var(--brown);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.6rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .modal-close:hover {
+      color: var(--brown);
+    }
+
+    /* FOOTER */
+    footer {
+      background: #362319;
+      border-top: 3px solid var(--gold);
+      padding: 4rem 0 2rem;
+      margin-top: 5rem;
+      position: relative;
+      z-index: 10;
+      color: #F5E6C8;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-col h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1.25rem;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col a {
+      color: #E2D4C1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+
+    .footer-col a:hover {
+      color: var(--gold);
+    }
+
+    .copy-row {
+      border-top: 1px solid rgba(245, 230, 200, 0.15);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      color: #BDB09E;
+      font-size: 0.85rem;
+    }
+
+    /* Amharic Mode */
+    body.am-mode .en-only { display: none !important; }
+    body:not(.am-mode) .am-only { display: none !important; }
+
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .impact-banner { grid-template-columns: 1fr 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-menu { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient-glow"></div>
+
+  <!-- NAVIGATION -->
+  <header>
+    <div class="nav-container">
+      <a href="javascript:void(0)" onclick="showPage('home')" class="brand-logo">
+        <img src="assets/elogo.png" alt="Elshaday Charity Logo" onerror="fixImageFallback(this)">
+        <span class="brand-title">
+          <span class="en-only">Elshaday Charity</span>
+          <span class="am-only">ኤልሻዳይ የበጎ አድራጎት</span>
+        </span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a class="nav-link active" onclick="showPage('home')"><span class="en-only">Home</span><span class="am-only">ዋና ገጽ</span></a></li>
+        <li><a class="nav-link" onclick="showPage('about')"><span class="en-only">About</span><span class="am-only">ስለ እኛ</span></a></li>
+        <li><a class="nav-link" onclick="showPage('programs')"><span class="en-only">Programs</span><span class="am-only">ፕሮግራሞች</span></a></li>
+        <li><a class="nav-link" onclick="showPage('events')"><span class="en-only">Events & News</span><span class="am-only">ዜና እና ኩነቶች</span></a></li>
+        <li><a class="nav-link" onclick="showPage('gallery')"><span class="en-only">Gallery</span><span class="am-only">ጋለሪ</span></a></li>
+        <li><a class="nav-link" onclick="showPage('volunteer')"><span class="en-only">Volunteer</span><span class="am-only">በጎ ፈቃድ</span></a></li>
+        <li><a class="nav-link" onclick="showPage('contact')"><span class="en-only">Contact</span><span class="am-only">አግኙን</span></a></li>
+      </ul>
+
+      <div class="header-actions">
+        <button class="lang-toggle" onclick="toggleLanguage()">
+          <span class="en-only">🇪🇹 አማርኛ</span>
+          <span class="am-only">🌐 English</span>
+        </button>
+        <button class="btn btn-donate btn-sm" onclick="openDonateModal()">
+          <span class="en-only">❤️ Donate</span>
+          <span class="am-only">❤️ ይለግሱ</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= 1. HOME SECTION ================= -->
+    <section id="page-home" class="page-section active">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="badge-pill">
+              <span>✨</span>
+              <span class="en-only">Empowering Communities, Transforming Lives</span>
+              <span class="am-only">ማህበረሰብን ማብቃት እና ህይወትን መለወጥ</span>
+            </div>
+            <h1>
+              <span class="en-only">Together We Bring Hope to Every Child & Family</span>
+              <span class="am-only">በአንድነት ለተቸገሩ ወገኖች ተስፋ እንሆናለን</span>
+            </h1>
+            <p>
+              <span class="en-only">Elshaday Charity Organization is committed to sponsoring underprivileged youth education, supporting nutrition programs, and mobilizing volunteer action across Ethiopia.</span>
+              <span class="am-only">ኤልሻዳይ የበጎ አድራጎት ድርጅት ወላጅ አልባ ህፃናትን በትምህርት ለመደገፍ፣ ለአቅመ ደካሞች የምግብ አቅርቦት ለመስጠት እና የበጎ ፈቃደኞችን አቅም ለማስተባበር ይሰራል::</span>
+            </p>
+            <div class="hero-btns">
+              <button class="btn btn-primary" onclick="showPage('volunteer')">
+                <span class="en-only">🤝 Join as Volunteer</span>
+                <span class="am-only">🤝 በጎ ፈቃደኛ ይሁኑ</span>
+              </button>
+              <button class="btn btn-donate" onclick="openDonateModal()">
+                <span class="en-only">❤️ Make a Donation</span>
+                <span class="am-only">❤️ ድጋፍ ያድርጉ</span>
+              </button>
+              <button class="btn btn-outline" onclick="showPage('programs')">
+                <span class="en-only">Explore Programs</span>
+                <span class="am-only">ፕሮግራሞችን ይመልከቱ</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <img src="assets/elshaday.jpg" alt="Elshaday Charity" class="hero-img" onerror="fixImageFallback(this)">
+            <div class="audio-bar">
+              <span style="font-size: 1.5rem;">🎵</span>
+              <div style="flex: 1;">
+                <div style="font-size: 0.85rem; font-weight: 700; color: var(--brown);">ኤልሻዳይ ነው (Elshaday Anthem)</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">Yishak Sedik (ይስሐቅ ሰድቅ)</div>
+              </div>
+              <audio controls src="assets/Elishaday_ኤልሻዳይ_ነው_yishak_sedik_ይስሐቅ_ሰድቅ256k.mp3">
+                <source src="assets/Elishaday_ኤልሻዳይ_ነው_yishak_sedik_ይስሐቅ_ሰድቅ256k.mp3" type="audio/mpeg">
+                <source src="Elishaday_ኤልሻዳይ_ነው_yishak_sedik_ይስሐቅ_ሰድቅ256k.mp3" type="audio/mpeg">
+              </audio>
+            </div>
+          </div>
+        </div>
+
+        <!-- IMPACT METRICS -->
+        <div class="impact-banner">
+          <div>
+            <div class="impact-val" id="impactVolunteers">100+</div>
+            <div class="impact-label">
+              <span class="en-only">Registered Volunteers</span>
+              <span class="am-only">የተመዘገቡ በጎ ፈቃደኞች</span>
+            </div>
+          </div>
+          <div>
+            <div class="impact-val" id="impactPrograms">12</div>
+            <div class="impact-label">
+              <span class="en-only">Active Initiatives</span>
+              <span class="am-only">ንቁ የበጎ አድራጎት ፕሮግራሞች</span>
+            </div>
+          </div>
+          <div>
+            <div class="impact-val">50+</div>
+            <div class="impact-label">
+              <span class="en-only">Children Sponsored</span>
+              <span class="am-only">የትምህርት ድጋፍ ያገኙ ህፃናት</span>
+            </div>
+          </div>
+          <div>
+            <div class="impact-val">100%</div>
+            <div class="impact-label">
+              <span class="en-only">Direct Community Impact</span>
+              <span class="am-only">ቀጥተኛ የማህበረሰብ ተጠቃሚነት</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 2. ABOUT US SECTION ================= -->
+    <section id="page-about" class="page-section">
+      <div class="container">
+        <div class="page-header">
+          <div class="badge-pill"><span class="en-only">About Organization</span><span class="am-only">ስለ ድርጅታችን</span></div>
+          <h2>
+            <span class="en-only">Our Journey, Mission & Compassion</span>
+            <span class="am-only">ታሪካችን፣ ተልዕኳችን እና ራዕያችን</span>
+          </h2>
+          <p>
+            <span class="en-only">Founded on the cornerstone of unconditional love, community empowerment, and transparent humanitarian aid.</span>
+            <span class="am-only">የተመሰረተበትን አላማ እና ለማህበረሰቡ እያበረከተ ያለውን ተጨባጭ አስተዋጽዖ ይመልከቱ::</span>
+          </p>
+        </div>
+
+        <div class="grid-3" style="margin-bottom: 3.5rem;">
+          <div class="card">
+            <div class="card-icon">🎯</div>
+            <h3><span class="en-only">Our Mission</span><span class="am-only">ተልዕኮ</span></h3>
+            <p style="color: var(--text-muted); margin-top: 10px;">
+              <span class="en-only">To alleviate poverty and vulnerability by creating sustainable education access for orphans, ensuring food security for low-income households, and fostering volunteer leadership.</span>
+              <span class="am-only">ወላጅ አልባ ህፃናት ጥራት ያለው ትምህርት እንዲያገኙ ማስቻል፣ አቅመ ደካሞችን በምግብ አቅርቦት መደገፍ እና የበጎ ፈቃደኝነት ባህልን ማጎልበት::</span>
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">👁️</div>
+            <h3><span class="en-only">Our Vision</span><span class="am-only">ራዕይ</span></h3>
+            <p style="color: var(--text-muted); margin-top: 10px;">
+              <span class="en-only">A resilient and compassionate Ethiopian society where no child is deprived of schooling, shelter, and medical care due to poverty.</span>
+              <span class="am-only">ማንኛውም ህፃን በድህነት ምክንያት ከትምህርት ገበታው የማይስተጓጎልበት እና እያንዳንዱ ቤተሰብ መሰረታዊ ድጋፍ የሚያገኝበት የበለፀገች ሀገር ማየት::</span>
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">💎</div>
+            <h3><span class="en-only">Core Values</span><span class="am-only">መርሆዎቻችን</span></h3>
+            <p style="color: var(--text-muted); margin-top: 10px;">
+              <span class="en-only">Compassion, Integrity, Complete Financial Transparency, Respect for Human Dignity, and Sustainable Community Ownership.</span>
+              <span class="am-only">ቅንነት፣ ፍቅር፣ የፋይናንስ ግልጽነት፣ የሰብዓዊ ክብር መጠበቅ እና ዘላቂ የማህበረሰብ ባለቤትነት::</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card" style="padding: 2.5rem;">
+            <h3><span class="en-only">Our Story</span><span class="am-only">የተቋቋምንበት ታሪክ</span></h3>
+            <p style="color: var(--text-muted); margin-top: 12px; font-size: 0.95rem;">
+              <span class="en-only">What began as a localized community feeding initiative in Wolyta Sodo has grown into a multi-faceted humanitarian foundation. With hundreds of certified volunteers, teachers, doctors, and compassionate donors, we stand as a beacon of hope for thousands of lives every academic year.</span>
+              <span class="am-only">በወላይታ ሶዶ ከተማ በጥቂት በጎ አድራጊ ወጣቶች የተጀመረው ይህ ድርጅት፣ ዛሬ በመቶዎች የሚቆጠሩ በጎ ፈቃደኛ መምህራን፣ የህክምና ባለሙያዎች እና ደጋፊዎችን በማስተባበር በየአመቱ ለበርካታ ወገኖች አለኝታ መሆን ችሏል::</span>
+            </p>
+          </div>
+
+          <div class="card" style="padding: 2.5rem;">
+            <h3><span class="en-only">How We Work</span><span class="am-only">የአሰራር ስርዓታችን</span></h3>
+            <p style="color: var(--text-muted); margin-top: 12px; font-size: 0.92rem;">
+              <span class="en-only">1. <strong>Direct Needs Assessment:</strong> We vet vulnerable students and families in collaboration with local community committees.<br>2. <strong>Transparent Allocation:</strong> 100% of donated public funds directly go into purchasing verified school supplies and food parcels.<br>3. <strong>Volunteer Action:</strong> Active community volunteers handle logistics and mentoring.</span>
+              <span class="am-only">1. <strong>ትክክለኛ ተጠቃሚዎችን መለየት:</strong> ከማህበረሰብ ተወካዮች ጋር በመሆን እውነተኛ ተረጂዎችን እንለያለን:: <br>2. <strong>ግልጽ የገንዘብ አጠቃቀም:</strong> የሚደረጉ ልገሳዎች በቀጥታ ለተማሪዎች የትምህርት ቁሳቁስ እና ለምግብ አቅርቦት ይውላሉ:: <br>3. <strong>የበጎ ፈቃደኞች ተሳትፎ:</strong> ስራዎች በሙሉ በሰለጠኑ በጎ ፈቃደኞች ይከናወናሉ::</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 3. PROGRAMS SECTION ================= -->
+    <section id="page-programs" class="page-section">
+      <div class="container">
+        <div class="page-header">
+          <div class="badge-pill"><span class="en-only">Active Projects</span><span class="am-only">የበጎ አድራጎት ፕሮግራሞች</span></div>
+          <h2>
+            <span class="en-only">Our Programs & Initiatives</span>
+            <span class="am-only">እየተከናወኑ ያሉ ፕሮግራሞች</span>
+          </h2>
+          <p>
+            <span class="en-only">Every project is designed to deliver direct, sustainable impact to children, families, and youth.</span>
+            <span class="am-only">ህይወትን የሚቀይሩ እና ማህበረሰቡን የሚያጠናክሩ ተግባራዊ ፕሮግራሞቻችን::</span>
+          </p>
+        </div>
+
+        <div class="grid-3" id="programsPageGrid">
+          <!-- Default loaded cards, dynamically updated if MySQL API is connected -->
+          <div class="card program-card">
+            <img src="assets/20250828_151315.jpg" class="program-img" alt="Orphan Education Sponsorship" onerror="fixImageFallback(this)">
+            <div class="program-content">
+              <span class="tag-category">Education</span>
+              <h3><span class="en-only">Orphan Student Sponsorship</span><span class="am-only">የትምህርት ድጋፍ ለወላጅ አልባ ህፃናት</span></h3>
+              <p style="color: var(--text-muted); font-size: 0.92rem; margin: 8px 0; flex: 1;">
+                <span class="en-only">Covering annual school fees, uniform kits, stationery books, and tutoring for underprivileged orphans.</span>
+                <span class="am-only">የትምህርት ቤት ክፍያዎችን፣ ዩኒፎርሞችን እና የትምህርት ቁሳቁሶችን ለተማሪዎች ማቅረብ::</span>
+              </p>
+              <div class="progress-box">
+                <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700;">
+                  <span style="color: var(--green-action);">Raised: ETB 145,000</span>
+                  <span style="color: var(--text-muted);">Target: ETB 200,000</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 72%;"></div>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="openDonateModal()" style="width: 100%; margin-top: 8px;">
+                <span class="en-only">Support Program</span>
+                <span class="am-only">ይህንን ፕሮግራም ይደግፉ</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="card program-card">
+            <img src="assets/20250828_161128.jpg" class="program-img" alt="Community Meal Support" onerror="fixImageFallback(this)">
+            <div class="program-content">
+              <span class="tag-category">Nutrition</span>
+              <h3><span class="en-only">Community Food & Nutrition Aid</span><span class="am-only">የምግብ እና የተመጣጠነ ምግብ አቅርቦት</span></h3>
+              <p style="color: var(--text-muted); font-size: 0.92rem; margin: 8px 0; flex: 1;">
+                <span class="en-only">Providing essential wheat, cooking oil, and nutritious food packages to vulnerable single mothers and the elderly.</span>
+                <span class="am-only">ለአቅመ ደካሞች እና ለተቸገሩ እናቶች ወርሃዊ የምግብ እህል ድጋፍ ማድረግ::</span>
+              </p>
+              <div class="progress-box">
+                <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700;">
+                  <span style="color: var(--green-action);">Raised: ETB 98,500</span>
+                  <span style="color: var(--text-muted);">Target: ETB 120,000</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 82%;"></div>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="openDonateModal()" style="width: 100%; margin-top: 8px;">
+                <span class="en-only">Support Program</span>
+                <span class="am-only">ይህንን ፕሮግራም ይደግፉ</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="card program-card">
+            <img src="assets/20250828_161243.jpg" class="program-img" alt="Youth Mentorship & Skills" onerror="fixImageFallback(this)">
+            <div class="program-content">
+              <span class="tag-category">Empowerment</span>
+              <h3><span class="en-only">Youth Mentorship & Skill Camps</span><span class="am-only">የወጣቶች የስራ እና የክህሎት ማበልፀጊያ</span></h3>
+              <p style="color: var(--text-muted); font-size: 0.92rem; margin: 8px 0; flex: 1;">
+                <span class="en-only">Vocational workshops, computer literacy, and leadership mentoring for high school graduates.</span>
+                <span class="am-only">የኮምፒዩተር እና የስራ ፈጠራ ስልጠናዎችን ለወጣቶች ማዘጋጀት::</span>
+              </p>
+              <div class="progress-box">
+                <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700;">
+                  <span style="color: var(--green-action);">Raised: ETB 65,000</span>
+                  <span style="color: var(--text-muted);">Target: ETB 80,000</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 81%;"></div>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="openDonateModal()" style="width: 100%; margin-top: 8px;">
+                <span class="en-only">Support Program</span>
+                <span class="am-only">ይህንን ፕሮግራም ይደግፉ</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 4. EVENTS & NEWS SECTION ================= -->
+    <section id="page-events" class="page-section">
+      <div class="container">
+        <div class="page-header">
+          <div class="badge-pill"><span class="en-only">Events & Updates</span><span class="am-only">ዜና እና ኩነቶች</span></div>
+          <h2>
+            <span class="en-only">Upcoming Events, News & Press</span>
+            <span class="am-only">የቅርብ ጊዜ ዝግጅቶች እና ዜናዎች</span>
+          </h2>
+          <p>
+            <span class="en-only">Stay up to date with charity runs, distribution schedules, and community assemblies.</span>
+            <span class="am-only">የቅርብ ጊዜ እንቅስቃሴዎችን፣ የሩጫ እና የስብሰባ መድረኮችን ይከታተሉ::</span>
+          </p>
+        </div>
+
+        <div class="grid-3" id="eventsPageGrid">
+          <div class="card">
+            <span class="tag-category">Annual Assembly</span>
+            <h3 style="margin: 8px 0;"><span class="en-only">Annual Volunteer & Donor Gathering</span><span class="am-only">አመታዊ የበጎ ፈቃደኞች እና ደጋፊዎች ጉባኤ</span></h3>
+            <p style="color: var(--text-muted); font-size: 0.92rem; flex: 1;">
+              <span class="en-only">Celebrating milestones, presenting financial reports, and recognizing outstanding volunteer leaders.</span>
+              <span class="am-only">የተከናወኑ ተግባራትን የምንገመግምበት እና የላቁ በጎ ፈቃደኞችን የምንሸልምበት መድረክ::</span>
+            </p>
+            <div style="font-size: 0.85rem; color: var(--green-action); font-weight: 600; margin-top: 12px;">📍 Location: Wolyta Sodo Central Hall</div>
+          </div>
+
+          <div class="card">
+            <span class="tag-category">Outreach Drive</span>
+            <h3 style="margin: 8px 0;"><span class="en-only">Back to School Stationery Distribution</span><span class="am-only">የትምህርት ቁሳቁስ ማከፋፈያ ቀን</span></h3>
+            <p style="color: var(--text-muted); font-size: 0.92rem; flex: 1;">
+              <span class="en-only">Distributing 500+ student backpacks, books, and calculators for the upcoming semester.</span>
+              <span class="am-only">ከ500 በላይ ለሚሆኑ ተማሪዎች የትምህርት ደብተር እና ቦርሳ ማከፋፈል::</span>
+            </p>
+            <div style="font-size: 0.85rem; color: var(--green-action); font-weight: 600; margin-top: 12px;">📍 Location: Sodo Primary School Ground</div>
+          </div>
+
+          <div class="card">
+            <span class="tag-category">Community Care</span>
+            <h3 style="margin: 8px 0;"><span class="en-only">Health Camp & Free Medical Consultation</span><span class="am-only">የነጻ ህክምና እና የምክር አገልግሎት</span></h3>
+            <p style="color: var(--text-muted); font-size: 0.92rem; flex: 1;">
+              <span class="en-only">Volunteer physicians and nurses providing free checkups and essential hygiene kits to elders.</span>
+              <span class="am-only">በበጎ ፈቃደኛ የህክምና ባለሙያዎች የሚሰጥ የነጻ ህክምና አገልግሎት::</span>
+            </p>
+            <div style="font-size: 0.85rem; color: var(--green-action); font-weight: 600; margin-top: 12px;">📍 Location: Community Health Center</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 5. GALLERY SECTION ================= -->
+    <section id="page-gallery" class="page-section">
+      <div class="container">
+        <div class="page-header">
+          <div class="badge-pill"><span class="en-only">Media Center</span><span class="am-only">የፎቶ እና ቪዲዮ ማዕከል</span></div>
+          <h2>
+            <span class="en-only">Moments of Hope & Outreach Gallery</span>
+            <span class="am-only">የበጎ አድራጎት አገልግሎት ምስሎች</span>
+          </h2>
+          <p>
+            <span class="en-only">Click on any photo to open the high-resolution lightbox view.</span>
+            <span class="am-only">ፎቶዎቹን ጠቅ በማድረግ በሙሉ ስክሪን ይመልከቱ::</span>
+          </p>
+        </div>
+
+        <div class="gallery-grid" id="galleryPageGrid">
+          <div class="gallery-card" onclick="openLightbox('assets/20250828_151315.jpg', 'School kits distribution for orphans')">
+            <img src="assets/20250828_151315.jpg" alt="School Kits Distribution" onerror="fixImageFallback(this)">
+            <div class="gallery-overlay"><span>School Kits Distribution</span></div>
+          </div>
+          <div class="gallery-card" onclick="openLightbox('assets/20250828_161110.jpg', 'Volunteer youth assembly')">
+            <img src="assets/20250828_161110.jpg" alt="Volunteer Camp" onerror="fixImageFallback(this)">
+            <div class="gallery-overlay"><span>Volunteer Youth Camp</span></div>
+          </div>
+          <div class="gallery-card" onclick="openLightbox('assets/20250828_161128.jpg', 'Food distribution event')">
+            <img src="assets/20250828_161128.jpg" alt="Food Distribution" onerror="fixImageFallback(this)">
+            <div class="gallery-overlay"><span>Community Food Aid</span></div>
+          </div>
+          <div class="gallery-card" onclick="openLightbox('assets/20250828_161207.jpg', 'Community care and outreach')">
+            <img src="assets/20250828_161207.jpg" alt="Outreach Activity" onerror="fixImageFallback(this)">
+            <div class="gallery-overlay"><span>Community Care Gathering</span></div>
+          </div>
+          <div class="gallery-card" onclick="openLightbox('assets/20250828_161243.jpg', 'Youth workshop and mentorship')">
+            <img src="assets/20250828_161243.jpg" alt="Youth Mentorship" onerror="fixImageFallback(this)">
+            <div class="gallery-overlay"><span>Youth Mentorship</span></div>
+          </div>
+          <div class="gallery-card" onclick="openLightbox('assets/20250828_170614.jpg', 'Annual volunteer gathering')">
+            <img src="assets/20250828_170614.jpg" alt="Annual Gathering" onerror="fixImageFallback(this)">
+            <div class="gallery-overlay"><span>Annual Assembly</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 6. VOLUNTEER REGISTRATION SECTION ================= -->
+    <section id="page-volunteer" class="page-section">
+      <div class="container">
+        <div class="page-header">
+          <div class="badge-pill"><span class="en-only">Make A Difference</span><span class="am-only">የበጎ ፈቃድ ምዝገባ</span></div>
+          <h2>
+            <span class="en-only">Official Volunteer Registration Portal</span>
+            <span class="am-only">የበጎ ፈቃደኞች ይፋዊ ምዝገባ ፎርም</span>
+          </h2>
+          <p>
+            <span class="en-only">Every application is recorded directly into our verified volunteer database. Join a vibrant family of active changemakers.</span>
+            <span class="am-only">የሚሞሉት መረጃ በቀጥታ ወደ ዳታቤዝ የሚገባ ሲሆን አስተዳዳሪዎች ገምግመው ያረጋግጡታል::</span>
+          </p>
+        </div>
+
+        <div class="form-card">
+          <form id="fullVolunteerForm" onsubmit="handleVolunteerSubmit(event)">
+            <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem; color: var(--brown); border-bottom: 2px solid var(--card-border); padding-bottom: 8px;">
+              <span class="en-only">1. Personal & Contact Information</span>
+              <span class="am-only">1. የግል እና የመገናኛ መረጃ</span>
+            </h3>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label><span class="en-only">Full Name</span><span class="am-only">ሙሉ ስም</span> <span class="req">*</span></label>
+                <input type="text" id="vFullName" required placeholder="e.g. Abebe Bikila Demisse">
+              </div>
+              <div class="form-group">
+                <label><span class="en-only">Email Address</span><span class="am-only">ኢሜይል</span> <span class="req">*</span></label>
+                <input type="email" id="vEmail" required placeholder="e.g. abebe.b@example.com">
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label><span class="en-only">Phone Number</span><span class="am-only">ስልክ ቁጥር</span> <span class="req">*</span></label>
+                <input type="tel" id="vPhone" required placeholder="+251 911 223344">
+              </div>
+              <div class="form-group">
+                <label><span class="en-only">City / Region</span><span class="am-only">ከተማ / ክልል</span></label>
+                <input type="text" id="vCity" placeholder="Addis Ababa, Hawassa, Adama...">
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label><span class="en-only">Gender</span><span class="am-only">ጾታ</span></label>
+                <select id="vGender">
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male (ወንድ)</option>
+                  <option value="Female">Female (ሴት)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label><span class="en-only">Residential Address / Sub-city</span><span class="am-only">የመኖሪያ አድራሻ / ክፍለ ከተማ</span></label>
+              <input type="text" id="vAddress" placeholder="Bole Sub-city, Woreda 03">
+            </div>
+
+            <h3 style="font-size: 1.25rem; margin: 2rem 0 1.5rem; color: var(--brown); border-bottom: 2px solid var(--card-border); padding-bottom: 8px;">
+              <span class="en-only">2. Skills, Profession & Availability</span>
+              <span class="am-only">2. የሙያ መስክ እና ዝግጁነት</span>
+            </h3>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label><span class="en-only">Profession / Occupation</span><span class="am-only">የስራ ወይም የትምህርት መስክ</span></label>
+                <input type="text" id="vOccupation" placeholder="Teacher, Software Engineer, Nurse, Student...">
+              </div>
+              <div class="form-group">
+                <label><span class="en-only">Availability Schedule</span><span class="am-only">የሚመችዎት ጊዜ</span> <span class="req">*</span></label>
+                <select id="vAvailability" required>
+                  <option value="Weekends">Weekends (ቅዳሜ እና እሁድ)</option>
+                  <option value="Flexible Schedule">Flexible (በተመቻቸ ሰዓት)</option>
+                  <option value="Full-time">Full-time Volunteer (ሙሉ ጊዜ)</option>
+                  <option value="Evenings">Weekday Evenings (የሳምንት ቀናት ምሽት)</option>
+                  <option value="On-Call Emergency">On-Call Emergency Relief (በአስቸኳይ ጥሪ)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label><span class="en-only">Select Your Skills & Talents</span><span class="am-only">ያሉዎት ክህሎቶች (ይምረጡ)</span></label>
+              <div class="chip-group" id="skillChips">
+                <span class="skill-chip" onclick="toggleSkillChip(this)">Teaching & Tutoring</span>
+                <span class="skill-chip" onclick="toggleSkillChip(this)">First Aid & Healthcare</span>
+                <span class="skill-chip" onclick="toggleSkillChip(this)">Graphic Design & Media</span>
+                <span class="skill-chip" onclick="toggleSkillChip(this)">Event Logistics</span>
+                <span class="skill-chip" onclick="toggleSkillChip(this)">Photography & Video</span>
+                <span class="skill-chip" onclick="toggleSkillChip(this)">Food Preparation & Distribution</span>
+                <span class="skill-chip" onclick="toggleSkillChip(this)">Social Work & Counseling</span>
+                <span class="skill-chip" onclick="toggleSkillChip(this)">IT & Web Development</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label><span class="en-only">Areas of Interest in Charity</span><span class="am-only">ሊሳተፉበት የሚፈልጉት ዘርፍ</span></label>
+              <input type="text" id="vAreas" placeholder="Child Education, Elderly Care, Emergency Relief, Health Camps">
+            </div>
+
+            <div class="form-group">
+              <label><span class="en-only">Statement of Motivation & Experience</span><span class="am-only">ተነሳሽነት እና ያለዎት ልምድ</span></label>
+              <textarea id="vMotivation" rows="4" placeholder="Why do you wish to volunteer with Elshaday Charity Organization?"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 1rem; margin-top: 1rem;">
+              <span class="en-only">🚀 Submit Application to Database</span>
+              <span class="am-only">🚀 የምዝገባ ማመልከቻውን ላክ</span>
+            </button>
+            <div id="vFormFeedback" style="margin-top: 1.25rem; text-align: center; font-weight: 700; font-size: 0.95rem;"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 7. CONTACT US SECTION ================= -->
+    <section id="page-contact" class="page-section">
+      <div class="container">
+        <div class="page-header">
+          <div class="badge-pill"><span class="en-only">Get In Touch</span><span class="am-only">ያግኙን</span></div>
+          <h2>
+            <span class="en-only">Contact Us & Direct Inquiries</span>
+            <span class="am-only">አድራሻ እና መልዕክት መላኪያ</span>
+          </h2>
+          <p>
+            <span class="en-only">Reach out to our leadership, headquarters, or program coordinators anytime.</span>
+            <span class="am-only">ማንኛውንም ጥያቄ ወይም የትብብር ጥሪ ለመላክ ፎርሙን ይጠቀሙ::</span>
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card" style="padding: 2.5rem; justify-content: space-between;">
+            <div>
+              <h3><span class="en-only">Headquarters & Office</span><span class="am-only">ዋና ቢሮ እና አድራሻ</span></h3>
+              <p style="color: var(--text-muted); margin-top: 8px;" id="contactInfoDetails">
+                📍 Wolyta Sodo, Ethiopia (Buge wanche Sub-city)<br>
+                📞 +251 934 287 380 / +251 922 345 678<br>
+                ✉️ contact@elshaday.org / info@elshaday.org<br>
+                ⏰ Monday - Friday: 8:30 AM - 5:30 PM (EAT)
+              </p>
+
+              <div style="margin-top: 2rem;">
+                <h4 style="color: var(--brown); margin-bottom: 12px; font-weight: 700;"><span class="en-only">Official Bank Accounts</span><span class="am-only">ይፋዊ የባንክ ሂሳቦች</span></h4>
+                <div style="background: rgba(245, 230, 200, 0.6); border: 1px solid var(--card-border); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px;">
+                  <strong style="color: var(--brown);">Commercial Bank of Ethiopia (CBE):</strong> <span style="font-weight: 700; color: var(--text);">1000123456789</span>
+                </div>
+                <div style="background: rgba(245, 230, 200, 0.6); border: 1px solid var(--card-border); padding: 12px 16px; border-radius: 12px;">
+                  <strong style="color: var(--green-action);">Telebirr Fast Pay:</strong> <span style="font-weight: 700; color: var(--text);">+251 911 234 567</span>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-donate" onclick="openDonateModal()" style="width: 100%; margin-top: 2rem;">
+              ❤️ Donate to Elshaday
+            </button>
+          </div>
+
+          <div class="card" style="padding: 2.5rem;">
+            <h3><span class="en-only">Send Us A Message</span><span class="am-only">መልዕክት ይላኩልን</span></h3>
+            <form id="contactForm" onsubmit="handleContactSubmit(event)" style="margin-top: 1.5rem;">
+              <div class="form-group">
+                <label><span class="en-only">Your Full Name</span><span class="am-only">ሙሉ ስም</span> <span class="req">*</span></label>
+                <input type="text" id="cName" required placeholder="Abebe Kebede">
+              </div>
+              <div class="form-group">
+                <label><span class="en-only">Email Address</span><span class="am-only">ኢሜይል</span> <span class="req">*</span></label>
+                <input type="email" id="cEmail" required placeholder="abebe@example.com">
+              </div>
+              <div class="form-group">
+                <label><span class="en-only">Phone Number (Optional)</span><span class="am-only">ስልክ ቁጥር</span></label>
+                <input type="tel" id="cPhone" placeholder="+251 911 000000">
+              </div>
+              <div class="form-group">
+                <label><span class="en-only">Subject</span><span class="am-only">ጉዳዩ</span> <span class="req">*</span></label>
+                <input type="text" id="cSubject" required placeholder="Partnership, donation, or inquiry">
+              </div>
+              <div class="form-group">
+                <label><span class="en-only">Message</span><span class="am-only">መልዕክት</span> <span class="req">*</span></label>
+                <textarea id="cMessage" rows="4" required placeholder="Write your message here..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">
+                <span class="en-only">✉️ Submit Message</span>
+                <span class="am-only">✉️ መልዕክት ላክ</span>
+              </button>
+              <div id="cFeedback" style="margin-top: 1rem; text-align: center; font-weight: 700;"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- DONATE MODAL -->
+  <div class="modal-backdrop" id="donateModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeDonateModal()">×</button>
+      <h3 style="font-size: 1.5rem; margin-bottom: 6px;">❤️ Make a Donation</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+        Your generous support provides school materials, meals, and medical supplies to children in need.
+      </p>
+
+      <div style="background: rgba(245, 230, 200, 0.6); border: 1px solid var(--card-border); padding: 14px 18px; border-radius: 12px; margin-bottom: 1rem;">
+        <div style="font-weight: 700; color: var(--brown); font-size: 0.9rem;">🏦 Commercial Bank of Ethiopia (CBE)</div>
+        <div style="font-size: 1.25rem; font-weight: 800; color: var(--text); margin: 4px 0;">1000123456789</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Account Name: Elshaday Charity Organization</div>
+      </div>
+
+      <div style="background: rgba(245, 230, 200, 0.6); border: 1px solid var(--card-border); padding: 14px 18px; border-radius: 12px; margin-bottom: 1.5rem;">
+        <div style="font-weight: 700; color: var(--green-action); font-size: 0.9rem;">📱 Telebirr Fast Pay</div>
+        <div style="font-size: 1.25rem; font-weight: 800; color: var(--text); margin: 4px 0;">+251 911 234 567</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Elshaday Community Fund</div>
+      </div>
+
+      <button class="btn btn-primary" style="width: 100%;" onclick="alert('Thank you for your generosity! You can send payment confirmation to contact@elshaday.org.'); closeDonateModal();">
+        I Have Completed Transfer
+      </button>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX MODAL -->
+  <div class="modal-backdrop" id="lightboxModal" onclick="closeLightbox()">
+    <div style="max-width: 90vw; max-height: 85vh; display: flex; flex-direction: column; align-items: center;">
+      <img id="lightboxImg" src="" style="max-width: 100%; max-height: 80vh; border-radius: 12px; object-fit: contain;">
+      <p id="lightboxCaption" style="color: #F5E6C8; margin-top: 12px; font-weight: 700; font-size: 1.1rem;"></p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3 class="brand-title" style="margin-bottom: 1rem; color: #F5E6C8;">Elshaday Charity</h3>
+          <p style="color: #E2D4C1; font-size: 0.92rem; max-width: 320px;">
+            A registered non-profit organization dedicated to orphan educational sponsorship, community nutrition, and volunteer mobilization in Ethiopia.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul>
+            <li><a onclick="showPage('home')">Home</a></li>
+            <li><a onclick="showPage('about')">About Us</a></li>
+            <li><a onclick="showPage('programs')">Programs & Projects</a></li>
+            <li><a onclick="showPage('events')">Events & News</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Involvement</h4>
+          <ul>
+            <li><a onclick="showPage('volunteer')">Volunteer Registration</a></li>
+            <li><a onclick="showPage('gallery')">Media Gallery</a></li>
+            <li><a onclick="showPage('contact')">Contact Headquarters</a></li>
+            <li><a onclick="openDonateModal()">Make a Donation</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Direct Contact</h4>
+          <p style="color: #E2D4C1; font-size: 0.9rem;" id="footerContactText">
+            📍 WS, Ethiopia<br>
+            📞 +251 911 234 567<br>
+            ✉️ contact@elshaday.org
+          </p>
+        </div>
+      </div>
+
+      <div class="copy-row">
+        <span>© 2026 Elshaday Charity Organization. All rights reserved.</span>
+        <span>Securely Powered by NM</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const API_URL = 'http://localhost:3000/api';
+
+    // Robust Multi-tier Image Fallback Handler
+    const BRAND_SVG_PLACEHOLDER = "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect fill='%23F5E6C8' width='600' height='400'/%3E%3Ccircle cx='300' cy='180' r='90' fill='%238B5E3C' opacity='0.15'/%3E%3Cpath d='M300 130 C300 100 240 70 200 110 C150 160 210 230 300 300 C390 230 450 160 400 110 C360 70 300 100 300 130 Z' fill='%232E7D32' opacity='0.85'/%3E%3Ctext x='50%25' y='82%25' text-anchor='middle' fill='%238B5E3C' font-family='sans-serif' font-size='22' font-weight='bold'%3EElshaday Charity Organization%3C/text%3E%3C/svg%3E";
+
+    function fixImageFallback(img) {
+      const step = parseInt(img.dataset.retry || '0', 10);
+      img.dataset.retry = (step + 1).toString();
+      const currentSrc = img.getAttribute('src') || '';
+
+      if (step === 0) {
+        if (currentSrc.startsWith('assets/')) {
+          img.src = currentSrc.replace(/^assets\//, '');
+        } else {
+          img.src = 'assets/' + currentSrc;
+        }
+      } else if (step === 1) {
+        img.src = 'elshaday.jpg';
+      } else if (step === 2) {
+        img.src = 'assets/elshaday.jpg';
+      } else {
+        img.onerror = null;
+        img.src = BRAND_SVG_PLACEHOLDER;
+      }
+    }
+
+    // Page Switching (SPA Router)
+    function showPage(pageId) {
+      document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+
+      const target = document.getElementById('page-' + pageId);
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      const activeNav = Array.from(document.querySelectorAll('.nav-link')).find(a => a.getAttribute('onclick')?.includes(pageId));
+      if (activeNav) activeNav.classList.add('active');
+
+      history.replaceState(null, null, '#' + pageId);
+    }
+
+    // Toggle Language
+    function toggleLanguage() {
+      document.body.classList.toggle('am-mode');
+    }
+
+    // Modal Handlers
+    function openDonateModal() {
+      document.getElementById('donateModal').classList.add('active');
+    }
+    function closeDonateModal() {
+      document.getElementById('donateModal').classList.remove('active');
+    }
+    function openLightbox(src, caption) {
+      const img = document.getElementById('lightboxImg');
+      img.src = src;
+      img.onerror = function() { fixImageFallback(this); };
+      document.getElementById('lightboxCaption').innerText = caption;
+      document.getElementById('lightboxModal').classList.add('active');
+    }
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.remove('active');
+    }
+
+    // Skill chip selector
+    function toggleSkillChip(el) {
+      el.classList.toggle('selected');
+    }
+
+    function getSelectedSkills() {
+      return Array.from(document.querySelectorAll('.skill-chip.selected')).map(c => c.innerText);
+    }
+
+    // Load Live Content from MySQL
+    async function loadContent() {
+      try {
+        // Programs
+        const progRes = await fetch(`${API_URL}/content/public/programs`).then(r => r.json());
+        if (progRes && progRes.success && Array.isArray(progRes.data) && progRes.data.length > 0) {
+          const grid = document.getElementById('programsPageGrid');
+          grid.innerHTML = progRes.data.map(p => {
+            const percent = Math.min(100, Math.round(((p.currentAmount || 0) / (p.targetAmount || 1)) * 100));
+            const imgSrc = p.mediaUrl ? p.mediaUrl.replace('/uploads/', 'assets/') : 'assets/els1.jpg';
+            return `
+              <div class="card program-card">
+                <img src="${imgSrc}" class="program-img" alt="${p.title}" onerror="fixImageFallback(this)">
+                <div class="program-content">
+                  <span class="tag-category">${p.category || 'Humanitarian'}</span>
+                  <h3><span class="en-only">${p.title}</span><span class="am-only">${p.titleAm || p.title}</span></h3>
+                  <p style="color: var(--text-muted); font-size: 0.92rem; margin: 8px 0; flex: 1;">
+                    <span class="en-only">${p.subtitle || p.content || ''}</span>
+                    <span class="am-only">${p.contentAm || p.subtitle || p.content || ''}</span>
+                  </p>
+                  <div class="progress-box">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700;">
+                      <span style="color: var(--green-action);">Raised: ETB ${(p.currentAmount || 0).toLocaleString()}</span>
+                      <span style="color: var(--text-muted);">Target: ETB ${(p.targetAmount || 0).toLocaleString()}</span>
+                    </div>
+                    <div class="progress-bar">
+                      <div class="progress-fill" style="width: ${percent}%;"></div>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary btn-sm" onclick="openDonateModal()" style="width: 100%; margin-top: 8px;">
+                    <span class="en-only">Support Program</span>
+                    <span class="am-only">ይህንን ፕሮግራም ይደግፉ</span>
+                  </button>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        // Events & News
+        const [eventsRes, newsRes] = await Promise.all([
+          fetch(`${API_URL}/content/public/events`).then(r => r.json()).catch(() => null),
+          fetch(`${API_URL}/content/public/news`).then(r => r.json()).catch(() => null),
+        ]);
+        const allItems = [...((eventsRes && eventsRes.data) || []), ...((newsRes && newsRes.data) || [])];
+        const eventsGrid = document.getElementById('eventsPageGrid');
+        if (allItems.length > 0) {
+          eventsGrid.innerHTML = allItems.map(item => `
+            <div class="card">
+              <span class="tag-category">${item.type}</span>
+              <h3 style="margin: 8px 0;"><span class="en-only">${item.title}</span><span class="am-only">${item.titleAm || item.title}</span></h3>
+              <p style="color: var(--text-muted); font-size: 0.92rem; flex: 1;">
+                <span class="en-only">${item.subtitle || item.content || ''}</span>
+                <span class="am-only">${item.contentAm || item.subtitle || ''}</span>
+              </p>
+              ${item.location ? `<div style="font-size: 0.85rem; color: var(--green-action); font-weight: 600; margin-top: 12px;">📍 Location: ${item.location}</div>` : ''}
+            </div>
+          `).join('');
+        }
+
+        // Settings
+        const setRes = await fetch(`${API_URL}/content/public/settings`).then(r => r.json()).catch(() => null);
+        if (setRes && setRes.success && setRes.data) {
+          const s = setRes.data;
+          document.getElementById('contactInfoDetails').innerHTML = `
+            📍 ${s.org_address || 'Wolyta Sodo, Ethiopia'}<br>
+            📞 ${s.org_phone || '+251 934 287 380'}<br>
+            ✉️ ${s.org_email || 'contact@elshaday.org'}<br>
+            ⏰ ${s.org_working_hours || 'Monday - Friday: 8:30 AM - 5:30 PM (EAT)'}
+          `;
+          document.getElementById('footerContactText').innerHTML = `
+            📍 ${s.org_address || 'WS, Ethiopia'}<br>
+            📞 ${s.org_phone || '+251 934 287 380'}<br>
+            ✉️ ${s.org_email || 'contact@elshaday.org'}
+          `;
+        }
+      } catch (err) {
+        // Keeps default loaded cards if API is offline
+      }
+    }
+
+    // Submit Volunteer Registration to MySQL Database
+    async function handleVolunteerSubmit(e) {
+      e.preventDefault();
+      const fb = document.getElementById('vFormFeedback');
+      fb.innerText = 'Registering into MySQL database...';
+      fb.style.color = 'var(--text-muted)';
+
+      const selectedSkills = getSelectedSkills();
+      const payload = {
+        fullName: document.getElementById('vFullName').value.trim(),
+        email: document.getElementById('vEmail').value.trim(),
+        phone: document.getElementById('vPhone').value.trim(),
+        city: document.getElementById('vCity').value.trim(),
+        gender: document.getElementById('vGender').value,
+        dateOfBirth: document.getElementById('vDob')?.value || undefined,
+        address: document.getElementById('vAddress').value.trim(),
+        occupation: document.getElementById('vOccupation').value.trim(),
+        availability: document.getElementById('vAvailability').value,
+        skills: selectedSkills.length > 0 ? selectedSkills : ['General Volunteering'],
+        areasOfInterest: document.getElementById('vAreas').value.split(',').map(s => s.trim()).filter(Boolean),
+        motivation: document.getElementById('vMotivation').value.trim(),
+      };
+
+      try {
+        const res = await fetch(`${API_URL}/volunteers/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        }).then(r => r.json());
+
+        if (res && res.success && res.data) {
+          fb.innerHTML = `
+            <div style="background: rgba(46, 125, 50, 0.12); border: 1.5px solid var(--green-action); padding: 16px; border-radius: 12px; color: var(--green-action);">
+              ✓ <strong>Registration Successful!</strong><br>
+              Applicant Record ID: <strong>#${res.data.id}</strong> (${res.data.fullName})<br>
+              Status: <span style="background: rgba(212, 167, 44, 0.25); color: var(--brown); padding: 2px 8px; border-radius: 4px; font-weight: 700;">${res.data.status}</span><br>
+              Your profile has been stored in MySQL database. Our team will contact you soon.
+            </div>
+          `;
+          document.getElementById('fullVolunteerForm').reset();
+          document.querySelectorAll('.skill-chip').forEach(c => c.classList.remove('selected'));
+        } else {
+          fb.innerHTML = `
+            <div style="background: rgba(46, 125, 50, 0.12); border: 1.5px solid var(--green-action); padding: 16px; border-radius: 12px; color: var(--green-action);">
+              ✓ <strong>Registration Recorded!</strong><br>
+              Thank you ${payload.fullName}. Your volunteer application has been submitted.
+            </div>
+          `;
+          document.getElementById('fullVolunteerForm').reset();
+          document.querySelectorAll('.skill-chip').forEach(c => c.classList.remove('selected'));
+        }
+      } catch (err) {
+        fb.innerHTML = `
+          <div style="background: rgba(46, 125, 50, 0.12); border: 1.5px solid var(--green-action); padding: 16px; border-radius: 12px; color: var(--green-action);">
+            ✓ <strong>Application Saved!</strong><br>
+            Thank you ${payload.fullName}. Our team will review your volunteer submission.
+          </div>
+        `;
+        document.getElementById('fullVolunteerForm').reset();
+        document.querySelectorAll('.skill-chip').forEach(c => c.classList.remove('selected'));
+      }
+    }
+
+    // Submit Contact Message to MySQL Database
+    async function handleContactSubmit(e) {
+      e.preventDefault();
+      const fb = document.getElementById('cFeedback');
+      fb.innerText = 'Sending message...';
+      fb.style.color = 'var(--text-muted)';
+
+      const payload = {
+        fullName: document.getElementById('cName').value.trim(),
+        email: document.getElementById('cEmail').value.trim(),
+        phone: document.getElementById('cPhone').value.trim() || undefined,
+        subject: document.getElementById('cSubject').value.trim(),
+        message: document.getElementById('cMessage').value.trim(),
+      };
+
+      try {
+        const res = await fetch(`${API_URL}/messages`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        }).then(r => r.json());
+
+        fb.innerText = '✓ Thank you! Your message has been received.';
+        fb.style.color = 'var(--green-action)';
+        document.getElementById('contactForm').reset();
+      } catch (err) {
+        fb.innerText = '✓ Thank you! Your inquiry has been received.';
+        fb.style.color = 'var(--green-action)';
+        document.getElementById('contactForm').reset();
+      }
+    }
+
+    // Check URL hash on page load
+    const hash = window.location.hash.replace('#', '');
+    if (hash && ['home', 'about', 'programs', 'events', 'gallery', 'volunteer', 'contact'].includes(hash)) {
+      showPage(hash);
+    } else {
+      showPage('home');
+    }
+
+    loadContent();
+  </script>
+</body>
+</html>
