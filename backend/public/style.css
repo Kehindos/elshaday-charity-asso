@@ -1,0 +1,320 @@
+/* ==========================================================================
+   ELSHADAY CHARITY ORGANIZATION - BRAND DESIGN SYSTEM & RESPONSIVE STYLES
+   ========================================================================== */
+
+:root {
+  /* Brand Color System */
+  --bg-cream: #F5E6C8;           /* 🤍 Cream / Shiro: Main background */
+  --brown: #8B5E3C;              /* 🟤 Warm Brown: Headings/details */
+  --brown-dark: #664126;
+  --brown-light: #A4754E;
+  --brown-soft: rgba(139, 94, 60, 0.12);
+  
+  --green-action: #2E7D32;       /* 🟢 Green: Charity / Hope / Action */
+  --green-hover: #236327;
+  --green-light: #388E3C;
+  --green-soft: rgba(46, 125, 50, 0.12);
+  
+  --gold: #D4A72C;               /* 🟡 Gold: Highlights */
+  --gold-hover: #B88E1F;
+  --gold-light: #E2BC4B;
+  --gold-soft: rgba(212, 167, 44, 0.18);
+  
+  --dark-text: #222222;          /* ⚫ Dark: Text */
+  --dark-muted: #5C5248;
+  
+  /* Semantic Mappings */
+  --bg: var(--bg-cream);
+  --bg-card: rgba(255, 255, 255, 0.90);
+  --bg-card-hover: #FFFFFF;
+  --card-border: rgba(139, 94, 60, 0.22);
+  --card-border-glow: rgba(212, 167, 44, 0.65);
+  
+  --primary: var(--green-action);
+  --primary-light: var(--green-light);
+  --primary-dark: var(--green-hover);
+  --secondary: var(--brown);
+  --accent: var(--gold);
+  --success: var(--green-action);
+  --danger: #D32F2F;
+  
+  --text: var(--dark-text);
+  --text-muted: var(--dark-muted);
+  
+  --input-bg: #FFFFFF;
+  --input-border: rgba(139, 94, 60, 0.3);
+  
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', 'Noto Sans Ethiopic', sans-serif;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER & NAVIGATION */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(245, 230, 200, 0.94);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--card-border);
+  padding: 0.85rem 2rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(139, 94, 60, 0.06);
+}
+
+.nav-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--brown);
+}
+
+.brand-logo img {
+  height: 44px;
+  width: auto;
+  border-radius: 8px;
+}
+
+.brand-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--brown);
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.nav-link {
+  padding: 8px 16px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.nav-link:hover {
+  color: var(--brown);
+  background: var(--brown-soft);
+}
+
+.nav-link.active {
+  color: #FFFFFF;
+  background: var(--brown);
+  border-color: var(--brown);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Mobile Menu Toggle Button (Hamburger) */
+.menu-toggle-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  background: var(--brown-soft);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  cursor: pointer;
+  gap: 5px;
+  transition: all 0.25s ease;
+  z-index: 1001;
+}
+
+.menu-toggle-btn:hover {
+  background: rgba(139, 94, 60, 0.2);
+}
+
+.menu-toggle-btn span {
+  display: block;
+  width: 22px;
+  height: 2.5px;
+  background-color: var(--brown);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.menu-toggle-btn.active span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+.menu-toggle-btn.active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.menu-toggle-btn.active span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* Mobile Drawer Overlay Backdrop */
+.mobile-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(34, 34, 34, 0.55);
+  backdrop-filter: blur(8px);
+  z-index: 1990;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mobile-drawer-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile Drawer Sidebar (Left side) */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: -320px;
+  width: min(85vw, 320px);
+  height: 100vh;
+  height: 100dvh;
+  background: #FFFDF8;
+  z-index: 1999;
+  box-shadow: 10px 0 35px rgba(0, 0, 0, 0.25);
+  transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  border-right: 1.5px solid var(--card-border);
+}
+
+.mobile-drawer.active {
+  left: 0;
+}
+
+.mobile-drawer-header {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--card-border);
+  background: rgba(245, 230, 200, 0.7);
+}
+
+.mobile-drawer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--brown);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.mobile-drawer-brand img {
+  height: 36px;
+  width: auto;
+  border-radius: 6px;
+}
+
+.mobile-drawer-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: var(--brown-soft);
+  color: var(--brown);
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  line-height: 1;
+  transition: all 0.2s ease;
+}
+
+.mobile-drawer-body {
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.98rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.mobile-nav-link:hover {
+  background: var(--brown-soft);
+  color: var(--brown);
+  padding-left: 20px;
+}
+
+.mobile-nav-link.active {
+  background: var(--brown);
+  color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(139, 94, 60, 0.3);
+}
+
+.mobile-drawer-footer {
+  padding: 1.25rem 1.5rem 2rem;
+  border-top: 1px solid var(--card-border);
+  background: rgba(245, 230, 200, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 960px) {
+  header { padding: 0.75rem 1.25rem; }
+  .nav-menu { display: none !important; }
+  .menu-toggle-btn { display: flex; }
+}
