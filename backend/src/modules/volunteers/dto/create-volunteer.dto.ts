@@ -37,7 +37,7 @@ export class CreateVolunteerDto {
   @IsString()
   dateOfBirth?: string;
 
-  @ApiPropertyOptional({ example: 'Bole, Sub-city, Woreda 03', description: 'Residential address' })
+  @ApiPropertyOptional({ example: 'Buge Sub-city, Wolyta Sodo', description: 'Residential address' })
   @IsOptional()
   @IsString()
   address?: string;

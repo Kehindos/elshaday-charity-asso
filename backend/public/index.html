@@ -1579,7 +1579,7 @@
 
             <div class="form-group">
               <label><span class="en-only">Residential Address / Sub-city</span><span class="am-only">የመኖሪያ አድራሻ / ክፍለ ከተማ</span></label>
-              <input type="text" id="vAddress" placeholder="Bole Sub-city, Woreda 03">
+              <input type="text" id="vAddress" placeholder="Buge Sub-city, Wolyta Sodo">
             </div>
 
             <h3 style="font-size: 1.25rem; margin: 2rem 0 1.5rem; color: var(--brown); border-bottom: 2px solid var(--card-border); padding-bottom: 8px;">
@@ -1658,9 +1658,9 @@
             <div>
               <h3><span class="en-only">Headquarters & Office</span><span class="am-only">ዋና ቢሮ እና አድራሻ</span></h3>
               <p style="color: var(--text-muted); margin-top: 8px;" id="contactInfoDetails">
-                📍 Wolyta Sodo, Ethiopia (Buge wanche Sub-city)<br>
-                📞 +251 934 287 380 / +251 922 345 678<br>
-                ✉️ contact@elshaday.org / info@elshaday.org<br>
+                📍 Wolyta Sodo, Ethiopia (Buge Sub-city)<br>
+                📞 +251 934 287 380<br>
+                ✉️ contact@elshaday.org<br>
                 ⏰ Monday - Friday: 8:30 AM - 5:30 PM (EAT)
               </p>
 
@@ -1670,7 +1670,7 @@
                   <strong style="color: var(--brown);">Commercial Bank of Ethiopia (CBE):</strong> <span style="font-weight: 700; color: var(--text);">1000123456789</span>
                 </div>
                 <div style="background: rgba(245, 230, 200, 0.6); border: 1px solid var(--card-border); padding: 12px 16px; border-radius: 12px;">
-                  <strong style="color: var(--green-action);">Telebirr Fast Pay:</strong> <span style="font-weight: 700; color: var(--text);">+251 911 234 567</span>
+                  <strong style="color: var(--green-action);">Telebirr Fast Pay:</strong> <span style="font-weight: 700; color: var(--text);">+251 934 287 380</span>
                 </div>
               </div>
             </div>
@@ -1693,7 +1693,7 @@
               </div>
               <div class="form-group">
                 <label><span class="en-only">Phone Number (Optional)</span><span class="am-only">ስልክ ቁጥር</span></label>
-                <input type="tel" id="cPhone" placeholder="+251 911 000000">
+                <input type="tel" id="cPhone" placeholder="+251 934 287 380">
               </div>
               <div class="form-group">
                 <label><span class="en-only">Subject</span><span class="am-only">ጉዳዩ</span> <span class="req">*</span></label>
@@ -1732,7 +1732,7 @@
 
       <div style="background: rgba(245, 230, 200, 0.6); border: 1px solid var(--card-border); padding: 14px 18px; border-radius: 12px; margin-bottom: 1.5rem;">
         <div style="font-weight: 700; color: var(--green-action); font-size: 0.9rem;">📱 Telebirr Fast Pay</div>
-        <div style="font-size: 1.25rem; font-weight: 800; color: var(--text); margin: 4px 0;">+251 911 234 567</div>
+        <div style="font-size: 1.25rem; font-weight: 800; color: var(--text); margin: 4px 0;">+251 934 287 380</div>
         <div style="font-size: 0.8rem; color: var(--text-muted);">Elshaday Community Fund</div>
       </div>
 
@@ -1784,8 +1784,8 @@
         <div class="footer-col">
           <h4>Direct Contact</h4>
           <p style="color: #E2D4C1; font-size: 0.9rem;" id="footerContactText">
-            📍 WS, Ethiopia<br>
-            📞 +251 911 234 567<br>
+            📍 Wolyta Sodo, Ethiopia (Buge Sub-city)<br>
+            📞 +251 934 287 380<br>
             ✉️ contact@elshaday.org
           </p>
         </div>
@@ -1994,13 +1994,13 @@
         if (setRes && setRes.success && setRes.data) {
           const s = setRes.data;
           document.getElementById('contactInfoDetails').innerHTML = `
-            📍 ${s.org_address || 'Wolyta Sodo, Ethiopia'}<br>
+            📍 ${s.org_address || 'Wolyta Sodo, Ethiopia (Buge Sub-city)'}<br>
             📞 ${s.org_phone || '+251 934 287 380'}<br>
             ✉️ ${s.org_email || 'contact@elshaday.org'}<br>
             ⏰ ${s.org_working_hours || 'Monday - Friday: 8:30 AM - 5:30 PM (EAT)'}
           `;
           document.getElementById('footerContactText').innerHTML = `
-            📍 ${s.org_address || 'WS, Ethiopia'}<br>
+            📍 ${s.org_address || 'Wolyta Sodo, Ethiopia (Buge Sub-city)'}<br>
             📞 ${s.org_phone || '+251 934 287 380'}<br>
             ✉️ ${s.org_email || 'contact@elshaday.org'}
           `;

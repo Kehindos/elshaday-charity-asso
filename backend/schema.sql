@@ -127,12 +127,12 @@ INSERT IGNORE INTO `site_settings` (`key`, `value`, `group`, `description`) VALU
 ('org_name_am', 'ኤልሻዳይ የበጎ አድራጎት ድርጅት', 'branding', 'Organization Name (AM)'),
 ('org_tagline', 'Empowering Communities, Transforming Lives', 'branding', 'Tagline'),
 ('org_email', 'contact@elshaday.org', 'contact', 'Primary contact email'),
-('org_phone', '+251 911 234 567', 'contact', 'Primary phone number'),
+('org_phone', '+251 934 287 380', 'contact', 'Primary phone number'),
 ('org_phone_secondary', '+251 922 345 678', 'contact', 'Secondary phone number'),
-('org_address', 'Addis Ababa, Ethiopia (Bole Sub-city, Woreda 03)', 'contact', 'Physical office address'),
+('org_address', 'Wolyta Sodo, Ethiopia (Buge Sub-city)', 'contact', 'Physical office address'),
 ('org_working_hours', 'Monday - Friday: 8:30 AM - 5:30 PM (EAT)', 'contact', 'Office hours'),
 ('bank_cbe_account', '1000123456789 (Commercial Bank of Ethiopia)', 'donation', 'CBE Donation Account'),
-('bank_telebirr', '+251 911 234 567 (Telebirr)', 'donation', 'Telebirr Account');
+('bank_telebirr', '+251 934 287 380 (Telebirr)', 'donation', 'Telebirr Account');
 
 -- 3. Initial Programs & Content
 INSERT IGNORE INTO `content_items` (`id`, `type`, `title`, `titleAm`, `subtitle`, `content`, `contentAm`, `category`, `mediaCategory`, `mediaUrl`, `targetAmount`, `currentAmount`, `isPublished`, `isFeatured`, `displayOrder`) VALUES
