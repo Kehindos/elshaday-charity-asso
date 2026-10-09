@@ -721,33 +721,377 @@
       font-size: 0.85rem;
     }
 
-    /* Amharic Mode */
+    /* Mobile Menu Toggle Button (Hamburger) */
+    .menu-toggle-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      background: var(--brown-soft);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      cursor: pointer;
+      gap: 5px;
+      transition: all 0.25s ease;
+      z-index: 1001;
+    }
+
+    .menu-toggle-btn:hover {
+      background: rgba(139, 94, 60, 0.2);
+    }
+
+    .menu-toggle-btn span {
+      display: block;
+      width: 22px;
+      height: 2.5px;
+      background-color: var(--brown);
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: center;
+    }
+
+    /* Animated Hamburger to X */
+    .menu-toggle-btn.active span:nth-child(1) {
+      transform: translateY(7.5px) rotate(45deg);
+    }
+    .menu-toggle-btn.active span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .menu-toggle-btn.active span:nth-child(3) {
+      transform: translateY(-7.5px) rotate(-45deg);
+    }
+
+    /* Mobile Drawer Overlay Backdrop */
+    .mobile-drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(34, 34, 34, 0.55);
+      backdrop-filter: blur(8px);
+      z-index: 1990;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .mobile-drawer-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Mobile Drawer Sidebar / Slide-Over Menu (Left Side) */
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      left: -320px;
+      width: min(85vw, 320px);
+      height: 100vh;
+      height: 100dvh;
+      background: #FFFDF8;
+      z-index: 1999;
+      box-shadow: 10px 0 35px rgba(0, 0, 0, 0.25);
+      transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      border-right: 1.5px solid var(--card-border);
+    }
+
+    .mobile-drawer.active {
+      left: 0;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mobile-drawer-header {
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--card-border);
+      background: rgba(245, 230, 200, 0.7);
+    }
+
+    .mobile-drawer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--brown);
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .mobile-drawer-brand img {
+      height: 36px;
+      width: auto;
+      border-radius: 6px;
+    }
+
+    .mobile-drawer-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      background: var(--brown-soft);
+      color: var(--brown);
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      line-height: 1;
+      transition: all 0.2s ease;
+    }
+    .mobile-drawer-close:hover {
+      background: var(--brown);
+      color: #fff;
+    }
+
+    .mobile-drawer-body {
+      padding: 1.25rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .mobile-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.98rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .mobile-nav-link .nav-icon {
+      font-size: 1.2rem;
+      width: 24px;
+      text-align: center;
+    }
+
+    .mobile-nav-link:hover {
+      background: var(--brown-soft);
+      color: var(--brown);
+      padding-left: 20px;
+    }
+
+    .mobile-nav-link.active {
+      background: var(--brown);
+      color: #FFFFFF;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(139, 94, 60, 0.3);
+    }
+
+    .mobile-drawer-footer {
+      padding: 1.25rem 1.5rem 2rem;
+      border-top: 1px solid var(--card-border);
+      background: rgba(245, 230, 200, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .mobile-drawer-footer .lang-toggle {
+      justify-content: center;
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+
+    .mobile-drawer-footer .btn-donate {
+      width: 100%;
+      padding: 12px;
+      font-size: 0.95rem;
+    }
+
+    /* Amharic Mode Visibility Rules */
     body.am-mode .en-only { display: none !important; }
     body:not(.am-mode) .am-only { display: none !important; }
 
+    /* RESPONSIVE MEDIA QUERIES FOR ALL SCREEN SIZES */
+    @media (max-width: 1200px) {
+      .container {
+        padding: 0 1.5rem;
+      }
+      .hero-content h1 {
+        font-size: 3.2rem;
+      }
+    }
+
     @media (max-width: 960px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .impact-banner { grid-template-columns: 1fr 1fr; }
-      .grid-2 { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-      .nav-menu { display: none; }
+      header {
+        padding: 0.75rem 1.25rem;
+      }
+      .nav-menu {
+        display: none !important;
+      }
+      .menu-toggle-btn {
+        display: flex;
+      }
+      .header-actions .btn-donate {
+        padding: 8px 14px;
+        font-size: 0.84rem;
+      }
+      .brand-title {
+        font-size: 1.15rem;
+      }
+      .brand-logo img {
+        height: 38px;
+      }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2.25rem;
+        padding: 1rem 0 2.5rem;
+      }
+      .hero-content h1 {
+        font-size: clamp(2rem, 5vw, 2.75rem);
+        letter-spacing: -0.5px;
+        margin-bottom: 1.25rem;
+      }
+      .hero-content p {
+        font-size: 1.05rem;
+        margin-bottom: 1.75rem;
+        max-width: 100%;
+      }
+      .page-header h1, .page-header h2 {
+        font-size: clamp(1.85rem, 4.5vw, 2.4rem);
+        margin-bottom: 0.75rem;
+      }
+      .page-header p {
+        font-size: 1rem;
+      }
+      .impact-banner {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 1.75rem 1.25rem;
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+      .impact-val {
+        font-size: 2.3rem;
+      }
+      .grid-3 {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .form-card {
+        padding: 2rem 1.5rem;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+      .copy-row {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 0.65rem 1rem;
+      }
+      .header-actions .lang-toggle {
+        display: none; /* Accessible inside mobile drawer */
+      }
+      .container {
+        padding: 0 1rem;
+      }
+      .page-section {
+        padding: 2rem 0 3.5rem;
+      }
+      .hero-btns {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero-btns .btn {
+        width: 100%;
+      }
+      .hero-img {
+        height: 240px;
+      }
+      .audio-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .audio-bar audio {
+        width: 100%;
+      }
+      .impact-banner {
+        grid-template-columns: 1fr 1fr;
+        padding: 1.25rem 0.75rem;
+        gap: 1rem;
+      }
+      .impact-val {
+        font-size: 1.85rem;
+      }
+      .impact-label {
+        font-size: 0.8rem;
+      }
+      .form-card {
+        padding: 1.5rem 1rem;
+        border-radius: var(--radius-md);
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+      }
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .gallery-card {
+        height: 220px;
+      }
+      .modal-box {
+        padding: 1.5rem 1.25rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="ambient-glow"></div>
 
-  <!-- NAVIGATION -->
-  <header>
+  <!-- NAVIGATION HEADER -->
+  <header id="mainHeader">
     <div class="nav-container">
-      <a href="javascript:void(0)" onclick="showPage('home')" class="brand-logo">
-        <img src="assets/elogo.png" alt="Elshaday Charity Logo" onerror="fixImageFallback(this)">
-        <span class="brand-title">
-          <span class="en-only">Elshaday Charity</span>
-          <span class="am-only">ኤልሻዳይ የበጎ አድራጎት</span>
-        </span>
-      </a>
+      <div class="header-left">
+        <!-- Mobile Menu Hamburger Button (Left Side) -->
+        <button class="menu-toggle-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
 
+        <a href="javascript:void(0)" onclick="showPage('home')" class="brand-logo" title="Elshaday Charity Organization">
+          <img src="assets/elogo.png" alt="Elshaday Charity Logo" onerror="fixImageFallback(this)">
+          <span class="brand-title">
+            <span class="en-only">Elshaday Charity</span>
+            <span class="am-only">ኤልሻዳይ የበጎ አድራጎት</span>
+          </span>
+        </a>
+      </div>
+
+      <!-- Desktop Nav Menu -->
       <ul class="nav-menu">
         <li><a class="nav-link active" onclick="showPage('home')"><span class="en-only">Home</span><span class="am-only">ዋና ገጽ</span></a></li>
         <li><a class="nav-link" onclick="showPage('about')"><span class="en-only">About</span><span class="am-only">ስለ እኛ</span></a></li>
@@ -758,8 +1102,9 @@
         <li><a class="nav-link" onclick="showPage('contact')"><span class="en-only">Contact</span><span class="am-only">አግኙን</span></a></li>
       </ul>
 
+      <!-- Header Actions (Language, Donate) -->
       <div class="header-actions">
-        <button class="lang-toggle" onclick="toggleLanguage()">
+        <button class="lang-toggle" onclick="toggleLanguage()" title="Toggle Language / ቋንቋ ይቀይሩ">
           <span class="en-only">🇪🇹 አማርኛ</span>
           <span class="am-only">🌐 English</span>
         </button>
@@ -770,6 +1115,75 @@
       </div>
     </div>
   </header>
+
+  <!-- MOBILE DRAWER BACKDROP -->
+  <div class="mobile-drawer-overlay" id="mobileDrawerOverlay" onclick="closeMobileMenu()"></div>
+
+  <!-- MOBILE DRAWER / SIDEBAR -->
+  <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile Navigation">
+    <div class="mobile-drawer-header">
+      <a href="javascript:void(0)" onclick="showPage('home')" class="mobile-drawer-brand">
+        <img src="assets/elogo.png" alt="Elshaday Charity" onerror="fixImageFallback(this)">
+        <span>
+          <span class="en-only">Elshaday Charity</span>
+          <span class="am-only">ኤልሻዳይ</span>
+        </span>
+      </a>
+      <button class="mobile-drawer-close" onclick="closeMobileMenu()" aria-label="Close navigation menu">&times;</button>
+    </div>
+
+    <div class="mobile-drawer-body">
+      <a class="mobile-nav-link active" onclick="showPage('home')">
+        <span class="nav-icon">🏠</span>
+        <span class="en-only">Home</span>
+        <span class="am-only">ዋና ገጽ</span>
+      </a>
+      <a class="mobile-nav-link" onclick="showPage('about')">
+        <span class="nav-icon">ℹ️</span>
+        <span class="en-only">About Us</span>
+        <span class="am-only">ስለ እኛ</span>
+      </a>
+      <a class="mobile-nav-link" onclick="showPage('programs')">
+        <span class="nav-icon">📖</span>
+        <span class="en-only">Programs & Projects</span>
+        <span class="am-only">የበጎ አድራጎት ፕሮግራሞች</span>
+      </a>
+      <a class="mobile-nav-link" onclick="showPage('events')">
+        <span class="nav-icon">📅</span>
+        <span class="en-only">Events & News</span>
+        <span class="am-only">ዜና እና ኩነቶች</span>
+      </a>
+      <a class="mobile-nav-link" onclick="showPage('gallery')">
+        <span class="nav-icon">🖼️</span>
+        <span class="en-only">Media Gallery</span>
+        <span class="am-only">የፎቶ እና ቪዲዮ ማዕከል</span>
+      </a>
+      <a class="mobile-nav-link" onclick="showPage('volunteer')">
+        <span class="nav-icon">🤝</span>
+        <span class="en-only">Volunteer Registration</span>
+        <span class="am-only">የበጎ ፈቃድ ምዝገባ</span>
+      </a>
+      <a class="mobile-nav-link" onclick="showPage('contact')">
+        <span class="nav-icon">📞</span>
+        <span class="en-only">Contact Headquarters</span>
+        <span class="am-only">አድራሻ እና አግኙን</span>
+      </a>
+    </div>
+
+    <div class="mobile-drawer-footer">
+      <button class="lang-toggle" onclick="toggleLanguage()">
+        <span class="en-only">🇪🇹 አማርኛ ቋንቋ ቀይር</span>
+        <span class="am-only">🌐 Switch to English</span>
+      </button>
+      <button class="btn btn-donate" onclick="openDonateModal(); closeMobileMenu();">
+        <span class="en-only">❤️ Make a Donation</span>
+        <span class="am-only">❤️ ይለግሱ (ድጋፍ ያድርጉ)</span>
+      </button>
+      <div style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">
+        📞 +251 934 287 380 &bull; Wolyta Sodo
+      </div>
+    </div>
+  </aside>
 
   <main>
     <!-- ================= 1. HOME SECTION ================= -->
@@ -1411,10 +1825,50 @@
       }
     }
 
-    // Page Switching (SPA Router)
+    // Mobile Navigation Drawer Handlers
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobileDrawer');
+      if (drawer && drawer.classList.contains('active')) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    }
+
+    function openMobileMenu() {
+      const drawer = document.getElementById('mobileDrawer');
+      const overlay = document.getElementById('mobileDrawerOverlay');
+      const btn = document.getElementById('mobileMenuBtn');
+      if (drawer) drawer.classList.add('active');
+      if (overlay) overlay.classList.add('active');
+      if (btn) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+      const drawer = document.getElementById('mobileDrawer');
+      const overlay = document.getElementById('mobileDrawerOverlay');
+      const btn = document.getElementById('mobileMenuBtn');
+      if (drawer) drawer.classList.remove('active');
+      if (overlay) overlay.classList.remove('active');
+      if (btn) {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+      document.body.style.overflow = '';
+    }
+
+    // Page Switching (SPA Router) - Synchronizes both Desktop & Mobile Navigation
     function showPage(pageId) {
+      // Close mobile drawer if open
+      closeMobileMenu();
+
       document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
       document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      document.querySelectorAll('.mobile-nav-link').forEach(link => link.classList.remove('active'));
 
       const target = document.getElementById('page-' + pageId);
       if (target) {
@@ -1422,8 +1876,13 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
-      const activeNav = Array.from(document.querySelectorAll('.nav-link')).find(a => a.getAttribute('onclick')?.includes(pageId));
-      if (activeNav) activeNav.classList.add('active');
+      // Highlight active desktop link
+      const activeDesktop = Array.from(document.querySelectorAll('.nav-link')).find(a => a.getAttribute('onclick')?.includes(`'${pageId}'`));
+      if (activeDesktop) activeDesktop.classList.add('active');
+
+      // Highlight active mobile drawer link
+      const activeMobile = Array.from(document.querySelectorAll('.mobile-nav-link')).find(a => a.getAttribute('onclick')?.includes(`'${pageId}'`));
+      if (activeMobile) activeMobile.classList.add('active');
 
       history.replaceState(null, null, '#' + pageId);
     }
@@ -1435,6 +1894,7 @@
 
     // Modal Handlers
     function openDonateModal() {
+      closeMobileMenu();
       document.getElementById('donateModal').classList.add('active');
     }
     function closeDonateModal() {
@@ -1450,6 +1910,15 @@
     function closeLightbox() {
       document.getElementById('lightboxModal').classList.remove('active');
     }
+
+    // Global Keydown & Backdrop Listeners
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMobileMenu();
+        closeDonateModal();
+        closeLightbox();
+      }
+    });
 
     // Skill chip selector
     function toggleSkillChip(el) {

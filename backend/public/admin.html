@@ -259,10 +259,21 @@
     .btn-danger { background: #D32F2F; color: #fff; }
     .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
 
+    /* Table responsive wrapper */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: #FFFFFF;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 1rem;
+      min-width: 600px;
     }
 
     th, td {
@@ -278,6 +289,7 @@
       text-transform: uppercase;
       font-size: 0.75rem;
       letter-spacing: 0.5px;
+      background: rgba(245, 230, 200, 0.4);
     }
 
     tr:hover td {
@@ -299,15 +311,162 @@
       align-items: center;
       color: var(--brown);
     }
+
+    /* Admin Hamburger Toggle Button */
+    .admin-menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      background: rgba(139, 94, 60, 0.12);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      cursor: pointer;
+      gap: 5px;
+      transition: all 0.25s ease;
+    }
+
+    .admin-menu-toggle:hover {
+      background: rgba(139, 94, 60, 0.22);
+    }
+
+    .admin-menu-toggle span {
+      display: block;
+      width: 20px;
+      height: 2.5px;
+      background-color: var(--brown);
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .admin-menu-toggle.active span:nth-child(1) {
+      transform: translateY(7.5px) rotate(45deg);
+    }
+    .admin-menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .admin-menu-toggle.active span:nth-child(3) {
+      transform: translateY(-7.5px) rotate(-45deg);
+    }
+
+    /* Admin Sidebar Overlay Backdrop */
+    .admin-sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(34, 34, 34, 0.55);
+      backdrop-filter: blur(8px);
+      z-index: 990;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .admin-sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Mobile Sidebar Header */
+    .sidebar-mobile-header {
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 8px;
+    }
+
+    /* Admin Responsive Media Queries */
+    @media (max-width: 960px) {
+      header {
+        padding: 0.75rem 1.25rem;
+      }
+      .brand {
+        font-size: 1.05rem;
+      }
+      .admin-menu-toggle {
+        display: flex;
+      }
+      .main-container {
+        padding: 1.25rem 1rem;
+        gap: 1.25rem;
+        flex-direction: column;
+      }
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -290px;
+        width: 280px;
+        height: 100vh;
+        height: 100dvh;
+        background: #FFFDF8;
+        z-index: 1000;
+        padding: 1.25rem;
+        box-shadow: 10px 0 35px rgba(0, 0, 0, 0.25);
+        transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        border-right: 1.5px solid var(--card-border);
+        overflow-y: auto;
+      }
+      .sidebar.active {
+        left: 0;
+      }
+      .sidebar-mobile-header {
+        display: flex;
+      }
+      .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+      }
+      .card {
+        padding: 1.25rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 0.65rem 0.85rem;
+      }
+      .brand span {
+        font-size: 0.92rem;
+      }
+      .auth-status-pill {
+        padding: 4px 10px;
+        font-size: 0.75rem;
+      }
+      .grid-4 {
+        grid-template-columns: 1fr 1fr;
+      }
+      .stat-val {
+        font-size: 1.45rem;
+      }
+      .stat-label {
+        font-size: 0.72rem;
+      }
+      .card {
+        padding: 1rem;
+        border-radius: 12px;
+      }
+    }
   </style>
 </head>
 <body>
 
+  <!-- ADMIN HEADER -->
   <header>
-    <div class="brand">
-      <span>✨ Elshaday Charity Management Portal</span>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button class="admin-menu-toggle" id="adminSidebarBtn" onclick="toggleAdminSidebar()" aria-label="Toggle admin sidebar">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="brand">
+        <span>✨ Elshaday Charity Management Portal</span>
+      </div>
     </div>
-    <div style="display: flex; gap: 12px; align-items: center;">
+    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
       <a href="http://localhost:3000/api/docs" target="_blank" class="btn btn-secondary btn-sm" style="text-decoration: none;">
         📚 Swagger API Docs
       </a>
@@ -319,8 +478,15 @@
     </div>
   </header>
 
+  <!-- ADMIN SIDEBAR BACKDROP -->
+  <div class="admin-sidebar-overlay" id="adminSidebarOverlay" onclick="closeAdminSidebar()"></div>
+
   <div class="main-container">
-    <div class="sidebar">
+    <aside class="sidebar" id="adminSidebar">
+      <div class="sidebar-mobile-header">
+        <strong style="color: var(--brown); font-size: 1.05rem;">Admin Navigation</strong>
+        <button class="btn btn-secondary btn-sm" onclick="closeAdminSidebar()" style="padding: 4px 10px;">&times;</button>
+      </div>
       <button class="nav-btn active" onclick="switchTab('dashboard')">📊 Dashboard & Stats</button>
       <button class="nav-btn" onclick="switchTab('volunteers')">🤝 Volunteer Management</button>
       <button class="nav-btn" onclick="switchTab('register-volunteer')">📝 Public Volunteer Form</button>
@@ -328,7 +494,7 @@
       <button class="nav-btn" onclick="switchTab('messages')">✉️ Contact Messages</button>
       <button class="nav-btn" onclick="switchTab('settings')">⚙️ Organization Settings</button>
       <button class="nav-btn" onclick="switchTab('auth')">🔐 Admin Login / Profile</button>
-    </div>
+    </aside>
 
     <div class="content-area">
 
@@ -375,20 +541,22 @@
 
           <div style="margin-top: 2rem;">
             <h3>Recent Volunteer Applicants</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>City</th>
-                  <th>Status</th>
-                  <th>Applied On</th>
-                </tr>
-              </thead>
-              <tbody id="recentVolunteersTable">
-                <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Loading dashboard data...</td></tr>
-              </tbody>
-            </table>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>City</th>
+                    <th>Status</th>
+                    <th>Applied On</th>
+                  </tr>
+                </thead>
+                <tbody id="recentVolunteersTable">
+                  <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Loading dashboard data...</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -396,10 +564,10 @@
       <!-- VOLUNTEERS TAB -->
       <div id="tab-volunteers" class="tab-view">
         <div class="card">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 10px;">
             <h2>🤝 Volunteer Registrations Management</h2>
-            <div style="display: flex; gap: 8px;">
-              <select id="filterStatus" onchange="loadVolunteers()" style="width: 180px;">
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; width: 100%; max-width: 500px;">
+              <select id="filterStatus" onchange="loadVolunteers()" style="flex: 1; min-width: 140px;">
                 <option value="">All Statuses</option>
                 <option value="PENDING">PENDING</option>
                 <option value="APPROVED">APPROVED</option>
@@ -407,26 +575,28 @@
                 <option value="INACTIVE">INACTIVE</option>
                 <option value="REJECTED">REJECTED</option>
               </select>
-              <input type="text" id="volunteerSearch" placeholder="Search by name/email..." onkeyup="if(event.key==='Enter') loadVolunteers()" style="width: 220px;">
+              <input type="text" id="volunteerSearch" placeholder="Search name/email..." onkeyup="if(event.key==='Enter') loadVolunteers()" style="flex: 1.5; min-width: 160px;">
               <button class="btn btn-primary btn-sm" onclick="loadVolunteers()">Filter</button>
             </div>
           </div>
 
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Full Name</th>
-                <th>Contact</th>
-                <th>Skills & Availability</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="volunteersTableBody">
-              <tr><td colspan="6" style="text-align:center;">Loading volunteers...</td></tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Full Name</th>
+                  <th>Contact</th>
+                  <th>Skills & Availability</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="volunteersTableBody">
+                <tr><td colspan="6" style="text-align:center;">Loading volunteers...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -437,7 +607,7 @@
           <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Test the public volunteer registration endpoint (<code>POST /api/volunteers/register</code>).</p>
 
           <form id="volunteerRegForm" onsubmit="handleVolunteerRegister(event)">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
               <div class="form-group">
                 <label>Full Name *</label>
                 <input type="text" id="regFullName" required placeholder="Abebe Bikila">
@@ -448,7 +618,7 @@
               </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
               <div class="form-group">
                 <label>Phone Number *</label>
                 <input type="text" id="regPhone" required placeholder="+251911223344">
@@ -459,7 +629,7 @@
               </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
               <div class="form-group">
                 <label>Occupation</label>
                 <input type="text" id="regOccupation" placeholder="Software Engineer / Teacher">
@@ -485,7 +655,7 @@
               <textarea id="regMotivation" rows="3" placeholder="Why do you wish to volunteer with us?"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Submit Volunteer Application</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 1rem; width: 100%; max-width: 280px;">Submit Volunteer Application</button>
             <span id="regFeedback" style="margin-left: 12px; font-weight: 600;"></span>
           </form>
         </div>
@@ -494,12 +664,12 @@
       <!-- CONTENT CMS TAB -->
       <div id="tab-content-cms" class="tab-view">
         <div class="card">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px;">
             <h2>📰 Website Content Management</h2>
             <button class="btn btn-primary btn-sm" onclick="showAddContentModal()">+ Add New Item</button>
           </div>
 
-          <div style="display: flex; gap: 8px; margin-bottom: 1rem;">
+          <div style="display: flex; gap: 6px; margin-bottom: 1rem; flex-wrap: wrap;">
             <button class="btn btn-secondary btn-sm" onclick="loadContent('ABOUT')">About</button>
             <button class="btn btn-secondary btn-sm" onclick="loadContent('PROGRAM')">Programs</button>
             <button class="btn btn-secondary btn-sm" onclick="loadContent('EVENT')">Events</button>
@@ -508,27 +678,29 @@
             <button class="btn btn-secondary btn-sm" onclick="loadContent('GALLERY')">Gallery</button>
           </div>
 
-          <table>
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Title (EN)</th>
-                <th>Title (Amharic)</th>
-                <th>Published</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="contentTableBody">
-              <tr><td colspan="5" style="text-align: center;">Loading CMS items...</td></tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Title (EN)</th>
+                  <th>Title (Amharic)</th>
+                  <th>Published</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="contentTableBody">
+                <tr><td colspan="5" style="text-align: center;">Loading CMS items...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       <!-- MESSAGES TAB -->
       <div id="tab-messages" class="tab-view">
         <div class="card">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px;">
             <h2>✉️ Contact Messages & Inquiries</h2>
             <select id="filterMsgStatus" onchange="loadMessages()" style="width: 180px;">
               <option value="">All Statuses</option>
@@ -539,20 +711,22 @@
             </select>
           </div>
 
-          <table>
-            <thead>
-              <tr>
-                <th>Sender</th>
-                <th>Subject</th>
-                <th>Message Snippet</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="messagesTableBody">
-              <tr><td colspan="5" style="text-align: center;">Loading messages...</td></tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Sender</th>
+                  <th>Subject</th>
+                  <th>Message Snippet</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="messagesTableBody">
+                <tr><td colspan="5" style="text-align: center;">Loading messages...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -615,7 +789,46 @@
       }
     }
 
+    // Mobile Admin Sidebar Handlers
+    function toggleAdminSidebar() {
+      const sidebar = document.getElementById('adminSidebar');
+      if (sidebar && sidebar.classList.contains('active')) {
+        closeAdminSidebar();
+      } else {
+        openAdminSidebar();
+      }
+    }
+
+    function openAdminSidebar() {
+      const sidebar = document.getElementById('adminSidebar');
+      const overlay = document.getElementById('adminSidebarOverlay');
+      const btn = document.getElementById('adminSidebarBtn');
+      if (sidebar) sidebar.classList.add('active');
+      if (overlay) overlay.classList.add('active');
+      if (btn) btn.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAdminSidebar() {
+      const sidebar = document.getElementById('adminSidebar');
+      const overlay = document.getElementById('adminSidebarOverlay');
+      const btn = document.getElementById('adminSidebarBtn');
+      if (sidebar) sidebar.classList.remove('active');
+      if (overlay) overlay.classList.remove('active');
+      if (btn) btn.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Close on Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeAdminSidebar();
+      }
+    });
+
     function switchTab(tabId) {
+      closeAdminSidebar();
+
       document.querySelectorAll('.tab-view').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
 
