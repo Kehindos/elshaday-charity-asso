@@ -2,11 +2,11 @@
 -- MySQL 8.0 Database Initialization Script for Charity Backend
 -- ==========================================================
 
-CREATE DATABASE IF NOT EXISTS `charity_db`
+CREATE DATABASE IF NOT EXISTS `elshaday_charity_db`
   DEFAULT CHARACTER SET utf8mb4
   DEFAULT COLLATE utf8mb4_unicode_ci;
 
-USE `charity_db`;
+USE `elshaday_charity_db`;
 
 -- 1. Admins Table
 CREATE TABLE IF NOT EXISTS `admins` (
