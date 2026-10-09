@@ -131,7 +131,7 @@ INSERT IGNORE INTO `site_settings` (`key`, `value`, `group`, `description`) VALU
 ('org_phone_secondary', '+251 922 345 678', 'contact', 'Secondary phone number'),
 ('org_address', 'Wolyta Sodo, Ethiopia (Buge Sub-city)', 'contact', 'Physical office address'),
 ('org_working_hours', 'Monday - Friday: 8:30 AM - 5:30 PM (EAT)', 'contact', 'Office hours'),
-('bank_cbe_account', '1000123456789 (Commercial Bank of Ethiopia)', 'donation', 'CBE Donation Account'),
+('bank_cbe_account', '1000722573138 (Izra, Bedilu and Asteway - CBE)', 'donation', 'CBE Donation Account'),
 ('bank_telebirr', '+251 934 287 380 (Telebirr)', 'donation', 'Telebirr Account');
 
 -- 3. Initial Programs & Content

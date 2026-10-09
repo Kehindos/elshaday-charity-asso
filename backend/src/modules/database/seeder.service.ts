@@ -82,7 +82,7 @@ export class SeederService implements OnApplicationBootstrap {
       { key: 'social_facebook', value: 'https://facebook.com/elshadaycharity', group: 'social', description: 'Facebook page' },
       { key: 'social_telegram', value: 'https://t.me/elshadaycharity', group: 'social', description: 'Telegram channel' },
       { key: 'social_youtube', value: 'https://youtube.com/@elshadaycharity', group: 'social', description: 'YouTube channel' },
-      { key: 'bank_cbe_account', value: '1000123456789 (Commercial Bank of Ethiopia)', group: 'donation', description: 'CBE Donation Account' },
+      { key: 'bank_cbe_account', value: '1000722573138 (Izra, Bedilu and Asteway - CBE)', group: 'donation', description: 'CBE Donation Account' },
       { key: 'bank_telebirr', value: '+251 934 287 380 (Telebirr)', group: 'donation', description: 'Telebirr Account' },
     ];
 
