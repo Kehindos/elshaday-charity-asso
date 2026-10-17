@@ -70,13 +70,24 @@ backend/
 └── package.json
 ```
 
-The frontend source of truth is the project root (`index.html`, `admin.html`,
-`style.css`, `script.js`, and `assets/`). Before build and backend start
-commands, these files are copied into `backend/public`, which is served by
-NestJS. After editing the frontend, restart the backend to publish the saved
-changes.
-
+The frontend source of truth is the project root (`index.html`, `admin.html`, `style.css`, `script.js`, and `assets/`). Before build and backend start commands, these files are copied into `backend/public`, which is served by NestJS. After editing the frontend, restart the backend to publish the saved changes.
 ---
+
+## Static Website Deployment (GitHub Pages)
+
+The GitHub Actions workflow in `.github/workflows/deploy-pages.yml` deploys the
+public static website when changes are pushed to `main`. In the repository's
+**Settings → Pages**, select **GitHub Actions** as the build and deployment
+source. The workflow publishes `index.html`, its styles and scripts, and the
+`assets/` directory; the backend and admin dashboard are not deployed by Pages.
+
+GitHub Pages only hosts static files. Volunteer registration, contact
+submissions, CMS content, and the admin dashboard require the NestJS API and
+MySQL database to be hosted separately. Once the API is publicly hosted, define
+`window.ELSHADAY_API_URL` before the page's application script runs (for example,
+`https://api.example.org/api`) and configure the API to allow requests from the
+Pages website origin. Do not put database credentials or API secrets in the
+frontend.
 
 ## ⚙️ Environment Configuration (`.env`)
 
@@ -132,7 +143,7 @@ recoverable.
 
 ### 1. Make sure MySQL is running and the database exists:
 ```sql
-CREATE DATABASE IF NOT EXISTS charity_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS elshaday_charity_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
 ### 2. Start the Backend:

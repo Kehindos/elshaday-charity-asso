@@ -145,6 +145,24 @@ export class SeederService implements OnApplicationBootstrap {
         isFeatured: true,
         displayOrder: 2,
       },
+
+      // Events
+      {
+        type: ContentType.EVENT,
+        title: 'Annual Youth Charity Run & Volunteer Meetup',
+        titleAm: 'አመታዊ የበጎ ፈቃደኞች የሩጫ እና የውይይት መድረክ',
+        subtitle: 'Join us for a 5km charity run in Addis Ababa to raise awareness and funds',
+        content: 'Bring your running shoes and enthusiasm! All proceeds will go directly to purchasing back-to-school kits for orphans.',
+        contentAm: 'በአዲስ አበባ ከተማ የሚካሄድ የ5 ኪሎ ሜትር የበጎ አድራጎት ሩጫ። የተገኘው ገቢ ሙሉ በሙሉ ለህፃናት የትምህርት ቁሳቁስ መግዣ ይውላል።',
+        category: 'Fundraiser & Gathering',
+        mediaCategory: MediaCategory.IMAGE,
+        mediaUrl: '/uploads/austin-kehmeier-lyiKExA4zQA-unsplash.jpg',
+        location: 'Meskel Square, Addis Ababa',
+        eventDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
+        isPublished: true,
+        isFeatured: true,
+        displayOrder: 1,
+      },
       // News & Announcements
       {
         type: ContentType.NEWS,
@@ -158,7 +176,7 @@ export class SeederService implements OnApplicationBootstrap {
         mediaUrl: '/uploads/20250828_151315.jpg',
         isPublished: true,
         isFeatured: true,
-        displayOrder: 1,
+        displayOrder: 2,
       },
       {
         type: ContentType.ANNOUNCEMENT,

@@ -391,23 +391,6 @@
       border-radius: var(--radius-md);
     }
 
-    .audio-bar {
-      margin-top: 1rem;
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid var(--card-border);
-      padding: 12px 16px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--text);
-    }
-
-    .audio-bar audio {
-      width: 100%;
-      height: 36px;
-    }
-
     /* METRIC BANNER */
     .impact-banner {
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 230, 200, 0.85) 100%);
@@ -1086,14 +1069,6 @@
       .hero-img {
         height: 240px;
       }
-      .audio-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-      }
-      .audio-bar audio {
-        width: 100%;
-      }
       .impact-banner {
         grid-template-columns: 1fr 1fr;
         padding: 1.25rem 0.75rem;
@@ -1287,17 +1262,6 @@
 
           <div class="hero-card">
             <img src="assets/elshaday.jpg" alt="Elshaday Charity" class="hero-img" onerror="fixImageFallback(this)">
-            <div class="audio-bar">
-              <span style="font-size: 1.5rem;">🎵</span>
-              <div style="flex: 1;">
-                <div style="font-size: 0.85rem; font-weight: 700; color: var(--brown);">ኤልሻዳይ ነው (Elshaday Anthem)</div>
-                <div style="font-size: 0.75rem; color: var(--text-muted);">Yishak Sedik (ይስሐቅ ሰድቅ)</div>
-              </div>
-              <audio controls src="assets/Elishaday_ኤልሻዳይ_ነው_yishak_sedik_ይስሐቅ_ሰድቅ256k.mp3">
-                <source src="assets/Elishaday_ኤልሻዳይ_ነው_yishak_sedik_ይስሐቅ_ሰድቅ256k.mp3" type="audio/mpeg">
-                <source src="Elishaday_ኤልሻዳይ_ነው_yishak_sedik_ይስሐቅ_ሰድቅ256k.mp3" type="audio/mpeg">
-              </audio>
-            </div>
           </div>
         </div>
 
@@ -1525,7 +1489,7 @@
             <h3 style="margin: 8px 0;"><span class="en-only">Back to School Stationery Distribution</span><span class="am-only">የትምህርት ቁሳቁስ ማከፋፈያ ቀን</span></h3>
             <p style="color: var(--text-muted); font-size: 0.92rem; flex: 1;">
               <span class="en-only">Distributing 500+ student backpacks, books, and calculators for the upcoming semester.</span>
-              <span class="am-only">ከ50 በላይ ለሚሆኑ ተማሪዎች የትምህርት ደብተር እና ቦርሳ ማከፋፈል::</span>
+              <span class="am-only">ከ500 በላይ ለሚሆኑ ተማሪዎች የትምህርት ደብተር እና ቦርሳ ማከፋፈል::</span>
             </p>
             <div style="font-size: 0.85rem; color: var(--green-action); font-weight: 600; margin-top: 12px;">📍 Location: Sodo Primary School Ground</div>
           </div>
@@ -1873,7 +1837,11 @@
   </footer>
 
   <script>
-    const API_URL = 'http://localhost:3000/api';
+    const API_URL = window.ELSHADAY_API_URL || (
+      ['localhost', '127.0.0.1'].includes(window.location.hostname)
+        ? 'http://localhost:3000/api'
+        : ''
+    );
 
     // Robust Multi-tier Image Fallback Handler
     const BRAND_SVG_PLACEHOLDER = "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect fill='%23F5E6C8' width='600' height='400'/%3E%3Ccircle cx='300' cy='180' r='90' fill='%238B5E3C' opacity='0.15'/%3E%3Cpath d='M300 130 C300 100 240 70 200 110 C150 160 210 230 300 300 C390 230 450 160 400 110 C360 70 300 100 300 130 Z' fill='%232E7D32' opacity='0.85'/%3E%3Ctext x='50%25' y='82%25' text-anchor='middle' fill='%238B5E3C' font-family='sans-serif' font-size='22' font-weight='bold'%3EElshaday Charity Organization%3C/text%3E%3C/svg%3E";
@@ -2005,6 +1973,8 @@
 
     // Load Live Content from MySQL
     async function loadContent() {
+      if (!API_URL) return;
+
       try {
         // Programs
         const progRes = await fetch(`${API_URL}/content/public/programs`).then(r => r.json());
@@ -2087,8 +2057,8 @@
             </a>
           `;
         }
-      } catch (err) {
-        // Keeps default loaded cards if API is offline
+      } catch (error) {
+        console.error('Unable to load website content from the API.', error);
       }
     }
 
@@ -2096,6 +2066,12 @@
     async function handleVolunteerSubmit(e) {
       e.preventDefault();
       const fb = document.getElementById('vFormFeedback');
+      if (!API_URL) {
+        fb.innerText = 'Volunteer registration is unavailable on this static website. Please email contact@elshaday.org.';
+        fb.style.color = 'var(--danger)';
+        return;
+      }
+
       fb.innerText = 'Registering into MySQL database...';
       fb.style.color = 'var(--text-muted)';
 
@@ -2122,8 +2098,13 @@
           body: JSON.stringify(payload),
         }).then(r => r.json());
 
-        if (res && res.success && res.data) {
-          fb.innerHTML = `
+        if (!res || !res.success || !res.data) {
+          fb.innerText = 'Registration could not be submitted. Please try again later or email contact@elshaday.org.';
+          fb.style.color = 'var(--danger)';
+          return;
+        }
+
+        fb.innerHTML = `
             <div style="background: rgba(46, 125, 50, 0.12); border: 1.5px solid var(--green-action); padding: 16px; border-radius: 12px; color: var(--green-action);">
               ✓ <strong>Registration Successful!</strong><br>
               Applicant Record ID: <strong>#${res.data.id}</strong> (${res.data.fullName})<br>
@@ -2131,27 +2112,12 @@
               Your profile has been stored in MySQL database. Our team will contact you soon.
             </div>
           `;
-          document.getElementById('fullVolunteerForm').reset();
-          document.querySelectorAll('.skill-chip').forEach(c => c.classList.remove('selected'));
-        } else {
-          fb.innerHTML = `
-            <div style="background: rgba(46, 125, 50, 0.12); border: 1.5px solid var(--green-action); padding: 16px; border-radius: 12px; color: var(--green-action);">
-              ✓ <strong>Registration Recorded!</strong><br>
-              Thank you ${payload.fullName}. Your volunteer application has been submitted.
-            </div>
-          `;
-          document.getElementById('fullVolunteerForm').reset();
-          document.querySelectorAll('.skill-chip').forEach(c => c.classList.remove('selected'));
-        }
-      } catch (err) {
-        fb.innerHTML = `
-          <div style="background: rgba(46, 125, 50, 0.12); border: 1.5px solid var(--green-action); padding: 16px; border-radius: 12px; color: var(--green-action);">
-            ✓ <strong>Application Saved!</strong><br>
-            Thank you ${payload.fullName}. Our team will review your volunteer submission.
-          </div>
-        `;
         document.getElementById('fullVolunteerForm').reset();
         document.querySelectorAll('.skill-chip').forEach(c => c.classList.remove('selected'));
+      } catch (error) {
+        console.error('Unable to submit volunteer registration.', error);
+        fb.innerText = 'Registration could not be submitted. Please try again later or email contact@elshaday.org.';
+        fb.style.color = 'var(--danger)';
       }
     }
 
@@ -2159,6 +2125,12 @@
     async function handleContactSubmit(e) {
       e.preventDefault();
       const fb = document.getElementById('cFeedback');
+      if (!API_URL) {
+        fb.innerText = 'The contact form is unavailable on this static website. Please email contact@elshaday.org.';
+        fb.style.color = 'var(--danger)';
+        return;
+      }
+
       fb.innerText = 'Sending message...';
       fb.style.color = 'var(--text-muted)';
 
@@ -2177,13 +2149,19 @@
           body: JSON.stringify(payload),
         }).then(r => r.json());
 
+        if (!res || !res.success) {
+          fb.innerText = 'Unable to send your message. Please try again later or email contact@elshaday.org.';
+          fb.style.color = 'var(--danger)';
+          return;
+        }
+
         fb.innerText = '✓ Thank you! Your message has been received.';
         fb.style.color = 'var(--green-action)';
         document.getElementById('contactForm').reset();
-      } catch (err) {
-        fb.innerText = '✓ Thank you! Your inquiry has been received.';
-        fb.style.color = 'var(--green-action)';
-        document.getElementById('contactForm').reset();
+      } catch (error) {
+        console.error('Unable to submit contact message.', error);
+        fb.innerText = 'Unable to send your message. Please try again later or email contact@elshaday.org.';
+        fb.style.color = 'var(--danger)';
       }
     }
 
