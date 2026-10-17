@@ -31,7 +31,7 @@ import { DatabaseModule } from './modules/database/database.module';
         password: config.get<string>('DB_PASSWORD', ''),
         database: config.get<string>('DB_DATABASE', 'charity_db'),
         autoLoadEntities: true,
-        synchronize: config.get<string>('DB_SYNCHRONIZE', 'false') === 'true',
+        synchronize: config.get<string>('DB_SYNCHRONIZE', 'true') === 'true',
         logging: config.get<string>('DB_LOGGING', 'false') === 'true',
         charset: 'utf8mb4_unicode_ci',
       }),
