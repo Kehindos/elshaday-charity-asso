@@ -6,11 +6,17 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "sync:frontend": "node scripts/sync-frontend.js",
+    "prebuild": "npm run sync:frontend",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\"",
+    "prestart": "npm run sync:frontend",
     "start": "nest start",
+    "prestart:dev": "npm run sync:frontend",
     "start:dev": "nest start --watch",
+    "prestart:debug": "npm run sync:frontend",
     "start:debug": "nest start --debug --watch",
+    "prestart:prod": "npm run sync:frontend",
     "start:prod": "node dist/main"
   },
   "dependencies": {

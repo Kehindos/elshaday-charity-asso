@@ -70,6 +70,12 @@ backend/
 └── package.json
 ```
 
+The frontend source of truth is the project root (`index.html`, `admin.html`,
+`style.css`, `script.js`, and `assets/`). Before build and backend start
+commands, these files are copied into `backend/public`, which is served by
+NestJS. After editing the frontend, restart the backend to publish the saved
+changes.
+
 ---
 
 ## ⚙️ Environment Configuration (`.env`)
@@ -85,9 +91,9 @@ DB_TYPE=mysql
 DB_HOST=localhost
 DB_PORT=3306
 DB_USERNAME=root
-DB_PASSWORD=your_password
-DB_DATABASE=charity_db
-DB_SYNCHRONIZE=true
+DB_PASSWORD=your_mysql_password_here
+DB_DATABASE=elshaday_charity_db
+DB_SYNCHRONIZE=false
 DB_LOGGING=false
 
 # JWT Authentication
@@ -102,6 +108,23 @@ DEFAULT_ADMIN_NAME=Super Administrator
 # Uploads
 UPLOAD_DEST=./uploads
 ```
+
+Keep `DB_SYNCHRONIZE=false` for databases that contain data. TypeORM schema
+synchronization is an opt-in development convenience and can issue DDL during
+startup. Create or migrate the database schema separately before starting the
+backend.
+
+Set `DB_PASSWORD` to the password configured for your MySQL account. A blank
+password is appropriate only for a local development MySQL instance that
+explicitly allows passwordless login; do not use a passwordless `root` account
+in production.
+
+If startup reports that a table's tablespace already exists, disabling
+synchronization prevents TypeORM from retrying the conflicting schema change,
+but does not repair the MySQL tablespace. Back up the database and resolve the
+orphaned or mismatched tablespace in MySQL before starting the application;
+do not delete database files or drop tables without confirming the data is
+recoverable.
 
 ---
 
