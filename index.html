@@ -93,77 +93,111 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(245, 230, 200, 0.94);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--card-border);
-      padding: 0.85rem 2rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(139, 94, 60, 0.06);
+      background: rgba(255, 253, 248, 0.97);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(139, 94, 60, 0.16);
+      box-shadow: 0 8px 28px rgba(54, 35, 25, 0.08);
     }
 
-    .nav-container {
+    .header-top {
       max-width: 1320px;
       margin: 0 auto;
+      padding: 0.8rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 2rem;
     }
 
     .brand-logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       text-decoration: none;
       color: var(--brown);
+      min-width: 0;
     }
 
     .brand-logo img {
-      height: 44px;
-      width: auto;
-      border-radius: 8px;
+      height: 58px;
+      width: 58px;
+      object-fit: contain;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 2px solid rgba(212, 167, 44, 0.72);
+      box-shadow: 0 3px 10px rgba(54, 35, 25, 0.12);
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
     }
 
     .brand-title {
-      font-size: 1.3rem;
+      font-size: clamp(1.05rem, 1.5vw, 1.35rem);
       font-weight: 800;
-      letter-spacing: -0.5px;
-      color: var(--brown);
+      line-height: 1.15;
+      letter-spacing: -0.35px;
+      color: var(--brown-dark);
+    }
+
+    .brand-tagline {
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+
+    .primary-nav {
+      border-top: 1px solid rgba(139, 94, 60, 0.12);
     }
 
     .nav-menu {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 2rem;
       display: flex;
       list-style: none;
-      gap: 0.5rem;
+      justify-content: space-between;
       align-items: center;
+      gap: 0.25rem;
     }
 
     .nav-link {
-      padding: 8px 16px;
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      padding: 0.7rem 0.85rem;
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       font-weight: 600;
-      border-radius: 10px;
-      transition: all 0.2s ease;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
       cursor: pointer;
-      border: 1px solid transparent;
     }
 
     .nav-link:hover {
       color: var(--brown);
-      background: var(--brown-soft);
+      background: rgba(212, 167, 44, 0.08);
     }
 
     .nav-link.active {
-      color: #FFFFFF;
-      background: var(--brown);
-      border-color: var(--brown);
+      color: var(--green-action);
+      border-bottom-color: var(--green-action);
     }
 
     .header-actions {
       display: flex;
       align-items: center;
       gap: 12px;
+      flex: 0 0 auto;
     }
 
     /* BUTTONS */
@@ -933,10 +967,10 @@
     }
 
     @media (max-width: 960px) {
-      header {
-        padding: 0.75rem 1.25rem;
+      .header-top {
+        padding: 0.7rem 1.25rem;
       }
-      .nav-menu {
+      .primary-nav {
         display: none !important;
       }
       .menu-toggle-btn {
@@ -950,7 +984,8 @@
         font-size: 1.15rem;
       }
       .brand-logo img {
-        height: 38px;
+        height: 46px;
+        width: 46px;
       }
       .hero-grid {
         grid-template-columns: 1fr;
@@ -1006,11 +1041,34 @@
     }
 
     @media (max-width: 600px) {
-      header {
+      .header-top {
         padding: 0.65rem 1rem;
+        gap: 0.75rem;
       }
       .header-actions .lang-toggle {
         display: none; /* Accessible inside mobile drawer */
+      }
+      .header-actions .btn-donate {
+        padding: 8px 11px;
+        font-size: 0.78rem;
+      }
+      .header-left {
+        gap: 8px;
+      }
+      .brand-logo {
+        gap: 8px;
+      }
+      .brand-logo img {
+        height: 40px;
+        width: 40px;
+      }
+      .brand-title {
+        font-size: 0.95rem;
+        letter-spacing: -0.3px;
+      }
+      .brand-tagline {
+        font-size: 0.55rem;
+        letter-spacing: 0.08em;
       }
       .container {
         padding: 0 1rem;
@@ -1073,7 +1131,7 @@
 
   <!-- NAVIGATION HEADER -->
   <header id="mainHeader">
-    <div class="nav-container">
+    <div class="header-top">
       <div class="header-left">
         <!-- Mobile Menu Hamburger Button (Left Side) -->
         <button class="menu-toggle-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -1084,23 +1142,18 @@
 
         <a href="javascript:void(0)" onclick="showPage('home')" class="brand-logo" title="Elshaday Charity Organization">
           <img src="assets/elogo.png" alt="Elshaday Charity Logo" onerror="fixImageFallback(this)">
-          <span class="brand-title">
-            <span class="en-only">Elshaday Charity</span>
-            <span class="am-only">ኤልሻዳይ የበጎ አድራጎት</span>
+          <span class="brand-copy">
+            <span class="brand-title">
+              <span class="en-only">Elshaday Charity Organization</span>
+              <span class="am-only">ኤልሻዳይ የበጎ አድራጎት ድርጅት</span>
+            </span>
+            <span class="brand-tagline">
+              <span class="en-only">Empowering Communities · Transforming Lives</span>
+              <span class="am-only">ማህበረሰብን ማብቃት · ህይወትን መቀየር</span>
+            </span>
           </span>
         </a>
       </div>
-
-      <!-- Desktop Nav Menu -->
-      <ul class="nav-menu">
-        <li><a class="nav-link active" onclick="showPage('home')"><span class="en-only">Home</span><span class="am-only">ዋና ገጽ</span></a></li>
-        <li><a class="nav-link" onclick="showPage('about')"><span class="en-only">About</span><span class="am-only">ስለ እኛ</span></a></li>
-        <li><a class="nav-link" onclick="showPage('programs')"><span class="en-only">Programs</span><span class="am-only">ፕሮግራሞች</span></a></li>
-        <li><a class="nav-link" onclick="showPage('events')"><span class="en-only">Events & News</span><span class="am-only">ዜና እና ኩነቶች</span></a></li>
-        <li><a class="nav-link" onclick="showPage('gallery')"><span class="en-only">Gallery</span><span class="am-only">ጋለሪ</span></a></li>
-        <li><a class="nav-link" onclick="showPage('volunteer')"><span class="en-only">Volunteer</span><span class="am-only">በጎ ፈቃድ</span></a></li>
-        <li><a class="nav-link" onclick="showPage('contact')"><span class="en-only">Contact</span><span class="am-only">አግኙን</span></a></li>
-      </ul>
 
       <!-- Header Actions (Language, Donate) -->
       <div class="header-actions">
@@ -1114,6 +1167,18 @@
         </button>
       </div>
     </div>
+
+    <nav class="primary-nav" aria-label="Main navigation">
+      <ul class="nav-menu">
+        <li><a class="nav-link active" onclick="showPage('home')"><span class="en-only">Home</span><span class="am-only">ዋና ገጽ</span></a></li>
+        <li><a class="nav-link" onclick="showPage('about')"><span class="en-only">About</span><span class="am-only">ስለ እኛ</span></a></li>
+        <li><a class="nav-link" onclick="showPage('programs')"><span class="en-only">Programs</span><span class="am-only">ፕሮግራሞች</span></a></li>
+        <li><a class="nav-link" onclick="showPage('events')"><span class="en-only">Events & News</span><span class="am-only">ዜና እና ኩነቶች</span></a></li>
+        <li><a class="nav-link" onclick="showPage('gallery')"><span class="en-only">Gallery</span><span class="am-only">ጋለሪ</span></a></li>
+        <li><a class="nav-link" onclick="showPage('volunteer')"><span class="en-only">Volunteer</span><span class="am-only">በጎ ፈቃድ</span></a></li>
+        <li><a class="nav-link" onclick="showPage('contact')"><span class="en-only">Contact</span><span class="am-only">አግኙን</span></a></li>
+      </ul>
+    </nav>
   </header>
 
   <!-- MOBILE DRAWER BACKDROP -->
