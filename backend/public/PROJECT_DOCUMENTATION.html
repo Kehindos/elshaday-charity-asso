@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elshaday Charity Organization — Comprehensive Project & Implementation Documentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Ethiopic:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #F5E6C8;
+      --brown: #8B5E3C;
+      --brown-dark: #5C3D26;
+      --brown-light: #A4754E;
+      --green-action: #2E7D32;
+      --green-light: #388E3C;
+      --gold: #D4A72C;
+      --dark-text: #222222;
+      --dark-muted: #5C5248;
+      --card-bg: #FFFFFF;
+      --card-border: rgba(139, 94, 60, 0.2);
+      --code-bg: #1E1E2E;
+      --code-text: #CDD6F4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans Ethiopic', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #FDFBF7;
+      color: var(--dark-text);
+      line-height: 1.65;
+      padding: 0;
+    }
+
+    /* Top Action Bar (hidden in print) */
+    .top-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(245, 230, 200, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1.5px solid var(--card-border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(139, 94, 60, 0.08);
+    }
+
+    .toolbar-title {
+      font-weight: 800;
+      color: var(--brown);
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--green-action);
+      color: #FFF;
+    }
+    .btn-primary:hover {
+      background: var(--brown);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #FFF;
+      color: var(--brown);
+      border: 1.5px solid var(--card-border);
+    }
+    .btn-secondary:hover {
+      background: var(--bg-cream);
+    }
+
+    /* Document Container */
+    .doc-container {
+      max-width: 1040px;
+      margin: 40px auto;
+      background: #FFFFFF;
+      padding: 60px 80px;
+      border-radius: 16px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 10px 40px rgba(139, 94, 60, 0.06);
+    }
+
+    /* Header Banner */
+    .doc-header {
+      border-bottom: 2px solid var(--card-border);
+      padding-bottom: 30px;
+      margin-bottom: 40px;
+    }
+
+    .doc-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      background: rgba(46, 125, 50, 0.12);
+      color: var(--green-action);
+      font-weight: 800;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .doc-title {
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: var(--brown-dark);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .doc-subtitle {
+      font-size: 1.15rem;
+      color: var(--dark-muted);
+      margin-bottom: 20px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      background: rgba(245, 230, 200, 0.45);
+      padding: 18px 24px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      font-size: 0.92rem;
+    }
+
+    .meta-item strong {
+      color: var(--brown);
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Section Styling */
+    h2 {
+      font-size: 1.6rem;
+      color: var(--brown);
+      border-bottom: 2px solid var(--card-border);
+      padding-bottom: 8px;
+      margin: 45px 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      color: var(--brown-dark);
+      margin: 28px 0 12px;
+    }
+
+    p, ul, ol {
+      margin-bottom: 16px;
+      color: var(--dark-text);
+      font-size: 0.98rem;
+    }
+
+    ul, ol {
+      padding-left: 24px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 20px 0 30px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(245, 230, 200, 0.7);
+      color: var(--brown);
+      font-weight: 800;
+      padding: 12px 16px;
+      border-bottom: 1.5px solid var(--card-border);
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(139, 94, 60, 0.1);
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td {
+      background: #FAF8F4;
+    }
+
+    /* Code Blocks */
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 18px 22px;
+      border-radius: 12px;
+      overflow-x: auto;
+      font-family: 'Fira Code', Consolas, Monaco, monospace;
+      font-size: 0.88rem;
+      margin: 18px 0 26px;
+      line-height: 1.5;
+    }
+
+    code {
+      font-family: 'Fira Code', Consolas, Monaco, monospace;
+      background: rgba(139, 94, 60, 0.1);
+      color: var(--brown-dark);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+    }
+
+    /* Callout Card */
+    .callout {
+      background: rgba(46, 125, 50, 0.08);
+      border-left: 4px solid var(--green-action);
+      padding: 16px 20px;
+      border-radius: 0 10px 10px 0;
+      margin: 20px 0;
+    }
+    .callout-title {
+      font-weight: 800;
+      color: var(--green-action);
+      margin-bottom: 6px;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: #FFFFFF;
+      }
+      .top-toolbar {
+        display: none !important;
+      }
+      .doc-container {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+        max-width: 100%;
+      }
+      h2 {
+        page-break-after: avoid;
+      }
+      table, pre {
+        page-break-inside: avoid;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .doc-container {
+        padding: 30px 20px;
+        margin: 15px auto;
+      }
+      .doc-title {
+        font-size: 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Floating Action Toolbar -->
+  <div class="top-toolbar">
+    <div class="toolbar-title">
+      <span>📄</span> Elshaday Charity Organization Project Documentation
+    </div>
+    <div class="toolbar-actions">
+      <button class="btn btn-secondary" onclick="downloadMarkdown()">
+        💾 Download Markdown
+      </button>
+      <button class="btn btn-primary" onclick="window.print()">
+        📥 Download as PDF / Print
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Document Container -->
+  <div class="doc-container" id="printableDoc">
+    <header class="doc-header">
+      <div class="doc-badge">Official Implementation Guide & Architecture Document</div>
+      <h1 class="doc-title">Elshaday Charity Organization</h1>
+      <div class="doc-subtitle">Full-Stack Humanitarian Portal, Mobile-First CMS, and RESTful Backend Architecture</div>
+
+      <div class="meta-grid">
+        <div class="meta-item">
+          <strong>Organization</strong>
+          Elshaday Charity Organization (ኤልሻዳይ)
+        </div>
+        <div class="meta-item">
+          <strong>Headquarters Location</strong>
+          Wolyta Sodo, Ethiopia (Buge Sub-city)
+        </div>
+        <div class="meta-item">
+          <strong>Direct Contact</strong>
+          📞 +251 934 287 380 | ✉️ contact@elshaday.org
+        </div>
+        <div class="meta-item">
+          <strong>Official Bank Account</strong>
+          CBE: <code>1000722573138</code> (Izra, Bedilu & Asteway)
+        </div>
+        <div class="meta-item">
+          <strong>Repository</strong>
+          <a href="https://github.com/Kehindos/elshaday-charity-asso" target="_blank" style="color: var(--green-action); font-weight: 700;">Kehindos/elshaday-charity-asso</a>
+        </div>
+        <div class="meta-item">
+          <strong>Version & Status</strong>
+          v1.0.0 (Production-Ready)
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION 1 -->
+    <h2>1. Executive Summary & Project Purpose</h2>
+    <p>
+      <strong>Elshaday Charity Organization (ኤልሻዳይ የበጎ አድራጎት ድርጅት)</strong> is a registered non-governmental humanitarian foundation based in <strong>Wolyta Sodo, Ethiopia</strong>. The organization's mission is to sponsor education for orphans, provide emergency food distribution and community nutrition, and mobilize passionate volunteers across Ethiopia.
+    </p>
+    <p>
+      The digital platform delivers a seamless, high-performance web experience for donors, volunteers, and organizational staff:
+    </p>
+    <ul>
+      <li><strong>Public Portal:</strong> Bilingual website (English and Amharic) featuring programs, news, donation channels, volunteer applications, and left-side mobile navigation.</li>
+      <li><strong>Administrative Dashboard:</strong> Secure management portal for volunteer review, CMS content publication, contact inquiries, and real-time impact metrics.</li>
+      <li><strong>Enterprise Backend:</strong> Modular NestJS REST API with MySQL 8.0, TypeORM, JWT authentication, and interactive Swagger documentation.</li>
+    </ul>
+
+    <!-- SECTION 2 -->
+    <h2>2. Technology Stack & Architecture</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Tier</th>
+            <th>Technology</th>
+            <th>Description & Responsibility</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Frontend</strong></td>
+            <td>Vanilla HTML5 / ES6+ JS</td>
+            <td>Ultra-fast, zero-overhead client with SPA hash router and real-time API synchronization.</td>
+          </tr>
+          <tr>
+            <td><strong>Styling & UX</strong></td>
+            <td>Custom CSS3 Design System</td>
+            <td>Warm Ethiopian earth-tone palette, left-aligned off-canvas mobile drawer, glassmorphism, fluid typography.</td>
+          </tr>
+          <tr>
+            <td><strong>Backend</strong></td>
+            <td>NestJS 10.x (TypeScript)</td>
+            <td>Modular enterprise architecture with dependency injection, validation pipes, and exception filters.</td>
+          </tr>
+          <tr>
+            <td><strong>Database Layer</strong></td>
+            <td>MySQL 8.0 / TypeORM 0.3.x</td>
+            <td>Relational database with InnoDB engine, UTF8MB4 charset, indexing, and transactional integrity.</td>
+          </tr>
+          <tr>
+            <td><strong>Authentication</strong></td>
+            <td>Passport.js & JWT</td>
+            <td>Role-Based Access Control (RBAC) with bcrypt password hashing (10 salt rounds).</td>
+          </tr>
+          <tr>
+            <td><strong>API Documentation</strong></td>
+            <td>Swagger OpenAPI 3.0</td>
+            <td>Live interactive API testing and documentation console at <code>/api/docs</code>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 3 -->
+    <h2>3. Database Schema Design (elshaday_charity_db)</h2>
+    <p>The system utilizes a clean, normalized relational schema with 5 primary tables:</p>
+
+    <h3>3.1 Tables Overview</h3>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Table Name</th>
+            <th>Primary Key</th>
+            <th>Key Columns</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>admins</code></td>
+            <td><code>id (UUID)</code></td>
+            <td><code>name, email, password, role, isActive</code></td>
+            <td>Administrator accounts and authorization roles.</td>
+          </tr>
+          <tr>
+            <td><code>volunteers</code></td>
+            <td><code>id (INT AUTO_INCREMENT)</code></td>
+            <td><code>fullName, email, phone, city, skills, status</code></td>
+            <td>Volunteer applications and member directory.</td>
+          </tr>
+          <tr>
+            <td><code>content_items</code></td>
+            <td><code>id (INT AUTO_INCREMENT)</code></td>
+            <td><code>type, title, titleAm, targetAmount, currentAmount</code></td>
+            <td>Articles, Programs, Events, News, and Gallery.</td>
+          </tr>
+          <tr>
+            <td><code>site_settings</code></td>
+            <td><code>id (INT AUTO_INCREMENT)</code></td>
+            <td><code>key (UNIQUE), value, group, description</code></td>
+            <td>Dynamic contact details, banking accounts, and branding.</td>
+          </tr>
+          <tr>
+            <td><code>contact_messages</code></td>
+            <td><code>id (INT AUTO_INCREMENT)</code></td>
+            <td><code>name, email, phone, subject, message, status</code></td>
+            <td>Public inquiries and internal admin follow-up notes.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 4 -->
+    <h2>4. RESTful API Endpoints Summary</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>HTTP Method & Route</th>
+            <th>Access Level</th>
+            <th>Functionality</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>POST /api/auth/login</code></td>
+            <td>Public</td>
+            <td>Authenticates administrator credentials and returns Bearer JWT token.</td>
+          </tr>
+          <tr>
+            <td><code>GET /api/volunteers</code></td>
+            <td>Protected (Admin)</td>
+            <td>Paginated volunteer list with status, city, and skill filters.</td>
+          </tr>
+          <tr>
+            <td><code>POST /api/volunteers/register</code></td>
+            <td>Public</td>
+            <td>Submits a new volunteer application with optional ID & CV uploads.</td>
+          </tr>
+          <tr>
+            <td><code>PATCH /api/volunteers/:id/status</code></td>
+            <td>Protected (Admin)</td>
+            <td>Updates volunteer lifecycle status (<code>APPROVED</code>, <code>ACTIVE</code>, etc.).</td>
+          </tr>
+          <tr>
+            <td><code>GET /api/content/public/programs</code></td>
+            <td>Public</td>
+            <td>Returns published charity programs and funding progress.</td>
+          </tr>
+          <tr>
+            <td><code>GET /api/content/public/settings</code></td>
+            <td>Public</td>
+            <td>Returns live organization contact details and official bank accounts.</td>
+          </tr>
+          <tr>
+            <td><code>GET /api/statistics/dashboard</code></td>
+            <td>Protected (Admin)</td>
+            <td>Returns aggregated KPI counts, funding metrics, and inquiries.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 5 -->
+    <h2>5. Quick Installation & Running Guide</h2>
+
+    <h3>5.1 Environment Setup</h3>
+    <pre><code># 1. Clone repository
+git clone https://github.com/Kehindos/elshaday-charity-asso.git
+cd elshaday-charity-asso
+
+# 2. Configure environment (backend/.env)
+PORT=3000
+DB_HOST=localhost
+DB_PORT=3306
+DB_USERNAME=root
+DB_PASSWORD=
+DB_DATABASE=elshaday_charity_db
+DB_SYNCHRONIZE=false
+
+# 3. Install backend dependencies
+cd backend
+npm install
+
+# 4. Start Development Server
+npm run start:dev</code></pre>
+
+    <div class="callout">
+      <div class="callout-title">✅ Ready-to-Use URLs:</div>
+      <ul style="margin: 0; padding-left: 20px;">
+        <li><strong>Public Website:</strong> <a href="http://localhost:3000/" target="_blank">http://localhost:3000/</a></li>
+        <li><strong>Admin Portal:</strong> <a href="http://localhost:3000/admin.html" target="_blank">http://localhost:3000/admin.html</a></li>
+        <li><strong>Interactive Swagger Docs:</strong> <a href="http://localhost:3000/api/docs" target="_blank">http://localhost:3000/api/docs</a></li>
+      </ul>
+    </div>
+
+    <!-- SECTION 6 -->
+    <h2>6. Default Credentials & Contact Reference</h2>
+    <ul>
+      <li><strong>Admin Email:</strong> <code>admin@example.com</code></li>
+      <li><strong>Admin Password:</strong> <code>12345678</code></li>
+      <li><strong>Headquarters:</strong> Wolyta Sodo, Ethiopia (Buge Sub-city)</li>
+      <li><strong>Contact Phone:</strong> +251 934 287 380</li>
+      <li><strong>Official Bank:</strong> Commercial Bank of Ethiopia (CBE) <code>1000722573138</code> (Izra, Bedilu and Asteway)</li>
+      <li><strong>Telebirr Fast Pay:</strong> <code>+251 934 287 380</code></li>
+    </ul>
+  </div>
+
+  <script>
+    function downloadMarkdown() {
+      window.location.href = 'PROJECT_DOCUMENTATION.md';
+    }
+  </script>
+</body>
+</html>
